@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>Escape Road</title>
+
+    <base href="https://cdn.jsdelivr.net/gh/wgfwpnew/assets@main/escaperoad/">
+
+    <link rel="stylesheet" href="TemplateData/style.css">
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #unity-container,
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        #loading-cover {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #progress-container {
+            width: 50%;
+            height: 12px;
+            border: 1px solid #777;
+        }
+
+        #progress {
+            width: 0;
+            height: 100%;
+            background: #fff;
+        }
+    </style>
+
+    <script src="TemplateData/loader.js"></script>
+</head>
+<body>
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas"></canvas>
+    </div>
+
+    <div id="loading-cover">
+        <div id="progress-container">
+            <div id="progress"></div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
