@@ -50,7 +50,7 @@
         chunks.push(value);
         let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
         let mbTotal = '86.96';
-        loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
+        if (loadingText) loadingText.textContent = `LOADING... ${mbDone} MB / ${mbTotal} MB`;
       }
       let fullBuffer = new Uint8Array(received);
       let offset = 0;
