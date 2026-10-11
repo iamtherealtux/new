@@ -97,14 +97,15 @@
       function unityShowBanner(msg, type) {
       }
 
-      var buildUrl = "Build";
+      var cdnRoot = "https://cdn.jsdelivr.net/gh/wgfwpnew/clover-pit@main/";
+      var buildUrl = cdnRoot + "Build";
       var loaderUrl = buildUrl + "/CloverPit.loader.js";
       var config = {
         arguments: [],
         dataUrl: dataUrl,
         frameworkUrl: buildUrl + "/CloverPit.framework.js",
         codeUrl: wasmUrl,
-        streamingAssetsUrl: "StreamingAssets",
+        streamingAssetsUrl: cdnRoot + "StreamingAssets",
         companyName: "Panik Arcade",
         productName: "CloverPit",
         productVersion: "1.3",
