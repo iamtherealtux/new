@@ -2,21 +2,301 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <title>BitLife</title>
 
     <base href="https://cdn.jsdelivr.net/gh/wgfwpnew/assets@main/bitlife/">
 
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .webgl-content,
+        #gameContainer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #status {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            z-index: 99999;
+            color: white;
+            font: 16px Arial, sans-serif;
+            text-align: center;
+            pointer-events: none;
+            text-shadow: 0 1px 3px black;
+        }
+
+        #status.failed {
+            top: 0;
+            bottom: auto;
+            box-sizing: border-box;
+            padding: 20px;
+            background: #8b0000;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+    </style>
+
+    <script>
+        let errorShown = false;
+
+        function showError(message) {
+            if (errorShown) return;
+
+            errorShown = true;
+
+            const text = "BitLife failed:\n\n" + message;
+            const status = document.getElementById("status");
+
+            if (status) {
+                status.textContent = text;
+                status.classList.add("failed");
+            }
+
+            alert(text);
+        }
+
+        function isGameFile(url) {
+            return /BitLife\.json|\.unityweb|UnityLoader\.js/i.test(
+                String(url)
+            );
+        }
+
+        // Catch JavaScript errors and failed script/stylesheet loads.
+        window.addEventListener("error", event => {
+            if (event.target !== window) {
+                const element = event.target;
+
+                if (
+                    element.tagName === "SCRIPT" ||
+                    element.tagName === "LINK"
+                ) {
+                    showError(
+                        "A resource could not be loaded:\n" +
+                        (element.src || element.href)
+                    );
+                }
+
+                return;
+            }
+
+            showError(
+                "JavaScript error:\n" +
+                (event.message || "Unknown error") +
+                (event.filename
+                    ? "\n\nFile: " + event.filename
+                    : "")
+            );
+        }, true);
+
+        // Catch rejected promises.
+        window.addEventListener("unhandledrejection", event => {
+            showError(
+                "Unhandled error:\n" +
+                String(event.reason)
+            );
+        });
+
+        // Detect failed fetch() requests.
+        const originalFetch = window.fetch;
+
+        if (originalFetch) {
+            window.fetch = function(...args) {
+                const input = args[0];
+                const url = input && input.url
+                    ? input.url
+                    : String(input);
+
+                return originalFetch.apply(this, args).then(
+                    response => {
+                        if (isGameFile(url) && !response.ok) {
+                            showError(
+                                "File download failed:\n" +
+                                url +
+                                "\n\nHTTP " + response.status
+                            );
+                        }
+
+                        return response;
+                    },
+                    error => {
+                        if (isGameFile(url)) {
+                            showError(
+                                "Network error downloading:\n" +
+                                url +
+                                "\n\n" + error
+                            );
+                        }
+
+                        throw error;
+                    }
+                );
+            };
+        }
+
+        // Detect failed XMLHttpRequest downloads.
+        // Older Unity loaders frequently use XMLHttpRequest.
+        const originalOpen = XMLHttpRequest.prototype.open;
+
+        XMLHttpRequest.prototype.open = function(method, url, ...rest) {
+            if (isGameFile(url)) {
+                this.addEventListener("error", () => {
+                    showError(
+                        "Network error downloading:\n" + url +
+                        "\n\nThe request may have been blocked."
+                    );
+                });
+
+                this.addEventListener("timeout", () => {
+                    showError(
+                        "Download timed out:\n" + url
+                    );
+                });
+
+                this.addEventListener("load", () => {
+                    if (this.status >= 400 || this.status === 0) {
+                        showError(
+                            "File download failed:\n" +
+                            url +
+                            "\n\nHTTP " + this.status
+                        );
+                    }
+                });
+            }
+
+            return originalOpen.call(this, method, url, ...rest);
+        };
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="game.css">
-
-    <script src="TemplateData/UnityProgress.js"></script>
-    <script src="Build/UnityLoader.js"></script>
 </head>
+
 <body>
     <div class="webgl-content">
         <div id="gameContainer"></div>
     </div>
 
-    <script src="game.js"></script>
+    <div id="status">Checking browser compatibility...</div>
+
+    <script>
+        const ROOT =
+            "https://cdn.jsdelivr.net/gh/wgfwpnew/assets@main/bitlife/";
+
+        const statusText = document.getElementById("status");
+
+        function setStatus(message) {
+            if (!errorShown) {
+                statusText.textContent = message;
+            }
+        }
+
+        function loadScript(url) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+
+                script.src = url;
+                script.crossOrigin = "anonymous";
+
+                script.onload = resolve;
+
+                script.onerror = () => {
+                    reject(
+                        new Error("Failed to load script:\n" + url)
+                    );
+                };
+
+                document.head.appendChild(script);
+            });
+        }
+
+        async function startBitLife() {
+            // Check WebAssembly.
+            if (typeof WebAssembly === "undefined") {
+                throw new Error(
+                    "WebAssembly is unavailable.\n\n" +
+                    "The Chromebook may have browser restrictions."
+                );
+            }
+
+            // Check WebGL.
+            const testCanvas = document.createElement("canvas");
+
+            const gl =
+                testCanvas.getContext("webgl2") ||
+                testCanvas.getContext("webgl");
+
+            if (!gl) {
+                throw new Error(
+                    "WebGL is unavailable.\n\n" +
+                    "Graphics acceleration may be disabled " +
+                    "or restricted on this Chromebook."
+                );
+            }
+
+            setStatus("Loading Unity...");
+
+            await loadScript(
+                ROOT + "Build/UnityLoader.js"
+            );
+
+            if (
+                typeof UnityLoader === "undefined" ||
+                typeof UnityLoader.instantiate !== "function"
+            ) {
+                throw new Error(
+                    "UnityLoader.js loaded, but " +
+                    "UnityLoader.instantiate is unavailable."
+                );
+            }
+
+            setStatus("Starting BitLife...");
+
+            const jsonUrl = ROOT + "Build/BitLife.json";
+
+            const instance = UnityLoader.instantiate(
+                "gameContainer",
+                jsonUrl,
+                {
+                    onProgress: (gameInstance, progress) => {
+                        if (errorShown) return;
+
+                        const percent = Math.round(progress * 100);
+
+                        setStatus(
+                            "Loading BitLife... " + percent + "%"
+                        );
+
+                        if (progress >= 1) {
+                            statusText.style.display = "none";
+                        }
+                    }
+                }
+            );
+
+            window.bitlifeInstance = instance;
+        }
+
+        startBitLife().catch(error => {
+            showError(
+                error && error.message
+                    ? error.message
+                    : String(error)
+            );
+        });
+    </script>
 </body>
 </html>
