@@ -1,66 +1,258 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <title>Escape Road</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Escape Road</title>
 
-    <base href="https://cdn.jsdelivr.net/gh/wgfwpnew/assets@main/escaperoad/">
+<base href="https://cdn.jsdelivr.net/gh/wgfwpnew/assets@main/escaperoad/">
 
-    <link rel="stylesheet" href="TemplateData/style.css">
+<link rel="stylesheet" href="TemplateData/style.css">
 
-    <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-            background: #000;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        #unity-container,
-        #unity-canvas {
-            width: 100%;
-            height: 100%;
-        }
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
 
-        #loading-cover {
-            position: fixed;
-            inset: 0;
-            z-index: 10;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+#unity-container {
+    width: 100%;
+    height: 100%;
+}
 
-        #progress-container {
-            width: 50%;
-            height: 12px;
-            border: 1px solid #777;
-        }
+#unity-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 
-        #progress {
-            width: 0;
-            height: 100%;
-            background: #fff;
-        }
-    </style>
+#loading-cover {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
 
-    <script src="TemplateData/loader.js"></script>
+#progress-container {
+    width: 50%;
+    height: 12px;
+    border: 1px solid #777;
+}
+
+#progress {
+    width: 0%;
+    height: 100%;
+    background: white;
+}
+
+#status {
+    color: white;
+    font: 16px Arial, sans-serif;
+    text-align: center;
+}
+</style>
 </head>
+
 <body>
-    <div id="unity-container" class="unity-desktop">
-        <canvas id="unity-canvas"></canvas>
-    </div>
 
-    <div id="loading-cover">
-        <div id="progress-container">
-            <div id="progress"></div>
-        </div>
-    </div>
+<div id="unity-container">
+    <canvas id="unity-canvas"></canvas>
+</div>
 
-    <script src="random.js"></script>
-    <script src="game.js"></script>
+<div id="loading-cover">
+    <div id="status">Starting Escape Road...</div>
+
+    <div id="progress-container">
+        <div id="progress"></div>
+    </div>
+</div>
+
+<script>
+const ROOT = "https://cdn.jsdelivr.net/gh/wgfwpnew/assets@main/escaperoad/";
+
+const canvas = document.getElementById("unity-canvas");
+const cover = document.getElementById("loading-cover");
+const progressBar = document.getElementById("progress");
+const statusText = document.getElementById("status");
+
+let failed = false;
+
+function fail(message) {
+    if (failed) return;
+
+    failed = true;
+
+    statusText.textContent = "Escape Road failed to load";
+
+    alert("Escape Road Error:\n\n" + message);
+}
+
+window.addEventListener("error", event => {
+    if (event.target !== window) {
+        const target = event.target;
+
+        if (target.tagName === "SCRIPT") {
+            fail("Script failed to load:\n" + target.src);
+        }
+
+        return;
+    }
+
+    fail(
+        (event.message || "Unknown JavaScript error") +
+        (event.filename ? "\nFile: " + event.filename : "")
+    );
+}, true);
+
+window.addEventListener("unhandledrejection", event => {
+    fail(String(event.reason));
+});
+
+// Detect failed Unity downloads.
+const originalOpen = XMLHttpRequest.prototype.open;
+
+XMLHttpRequest.prototype.open = function(method, url, ...args) {
+    if (/unityweb|escaperoad/i.test(String(url))) {
+        this.addEventListener("loadend", () => {
+            if (this.status === 0 || this.status >= 400) {
+                fail(
+                    "Download failed:\n" +
+                    url +
+                    "\n\nHTTP " + this.status
+                );
+            }
+        });
+    }
+
+    return originalOpen.call(this, method, url, ...args);
+};
+
+// Detect failed fetch requests.
+const originalFetch = window.fetch.bind(window);
+
+window.fetch = async function(...args) {
+    const input = args[0];
+    const url = input instanceof Request ? input.url : String(input);
+
+    try {
+        const response = await originalFetch(...args);
+
+        if (!response.ok && /unityweb|escaperoad/i.test(url)) {
+            fail(
+                "Download failed:\n" +
+                url +
+                "\n\nHTTP " + response.status
+            );
+        }
+
+        return response;
+    } catch (error) {
+        if (/unityweb|escaperoad/i.test(url)) {
+            fail("Network error:\n" + url + "\n\n" + error);
+        }
+
+        throw error;
+    }
+};
+
+function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+
+        script.src = url;
+
+        script.onload = resolve;
+
+        script.onerror = () => {
+            reject(new Error("Could not load:\n" + url));
+        };
+
+        document.body.appendChild(script);
+    });
+}
+
+async function start() {
+    if (typeof WebAssembly === "undefined") {
+        throw new Error("WebAssembly is unavailable");
+    }
+
+    const testCanvas = document.createElement("canvas");
+
+    if (
+        !testCanvas.getContext("webgl2") &&
+        !testCanvas.getContext("webgl")
+    ) {
+        throw new Error("WebGL is unavailable");
+    }
+
+    statusText.textContent = "Loading Unity...";
+
+    await loadScript(ROOT + "TemplateData/loader.js");
+
+    statusText.textContent = "Loading game scripts...";
+
+    await loadScript(ROOT + "random.js");
+
+    if (typeof createUnityInstance !== "function") {
+        throw new Error("createUnityInstance() is missing");
+    }
+
+    const config = {
+        dataUrl: ROOT + "TemplateData/data.unityweb",
+
+        frameworkUrl:
+            ROOT + "TemplateData/framework.js.unityweb",
+
+        codeUrl:
+            ROOT + "TemplateData/wasm.unityweb",
+
+        streamingAssetsUrl:
+            ROOT + "StreamingAssets",
+
+        companyName: "1games.io",
+        productName: "Escape Road",
+        productVersion: "2.0"
+    };
+
+    statusText.textContent = "Loading Escape Road...";
+
+    const instance = await createUnityInstance(
+        canvas,
+        config,
+        progress => {
+            if (failed) return;
+
+            const percent = Math.round(progress * 100);
+
+            progressBar.style.width = percent + "%";
+
+            statusText.textContent =
+                "Loading Escape Road... " + percent + "%";
+        }
+    );
+
+    window.unityInstance = instance;
+
+    cover.style.display = "none";
+    window.focus();
+}
+
+start().catch(error => {
+    fail(error.message || String(error));
+});
+</script>
+
 </body>
 </html>
