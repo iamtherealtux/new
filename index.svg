@@ -4,14 +4,19 @@
 </foreignObject>
 
 <script><![CDATA[
-const _0xf=document["getElementById"]("frame");let _0xc=null,_0xu=null,_0xl=!1;
+const _0xf=document["getElementById"]("frame");let _0xc=null,_0xu=null,_0xl=!1,_0xrequestId=0;
 
 async function _0xsha(){
+try{
 const _0xr=await fetch("https://api.github.com/repos/wgfwpnew/wgfwp/branches/main?_"+Date.now(),{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
 if(!_0xr.ok)throw new Error("GitHub branch lookup failed: HTTP "+_0xr.status);
 const _0xj=await _0xr.json();
 if(!_0xj.commit||!_0xj.commit.sha)throw new Error("GitHub did not return a commit SHA");
 return _0xj.commit.sha
+}catch(_0xerr){
+console.warn("GitHub SHA lookup failed; using jsDelivr @main:",_0xerr);
+return "main"
+}
 }
 
 function _0xe(_0xx){
@@ -21,7 +26,7 @@ _0xf["srcdoc"]=`<!doctype html><html><head><meta charset="utf-8"><style>body{bac
 }
 
 function _0xb(_0xh,_0xbase){
-const _0xs=Date.now().toString(),_0xd=new DOMParser()["parseFromString"](_0xh,"text/html");
+const _0xd=new DOMParser()["parseFromString"](_0xh,"text/html");
 
 if(!_0xd["head"]){
 const _0xhead=_0xd["createElement"]("head");
@@ -40,25 +45,11 @@ _0xbaseel["href"]=new URL("./",_0xbase)["href"];
 _0xd["head"]["prepend"](_0xbaseel)
 }
 
-_0xd["querySelectorAll"]("script[src],link[href],img[src],source[src],audio[src],video[src],iframe[src],object[data],embed[src]")["forEach"](_0xa=>{
-const _0xattr=_0xa["hasAttribute"]("src")?"src":_0xa["hasAttribute"]("href")?"href":_0xa["hasAttribute"]("data")?"data":null;
-if(!_0xattr)return;
-
-const _0xv=_0xa["getAttribute"](_0xattr);
-
-if(!_0xv||/^(data:|blob:|#|javascript:|mailto:|tel:)/i.test(_0xv))return;
-
-try{
-const _0xurl=new URL(_0xv,_0xbaseel["href"]);
-_0xurl["searchParams"]["set"]("_cb",_0xs);
-_0xa["setAttribute"](_0xattr,_0xurl["href"])
-}catch(_0xq){}
-});
-
 return "<!doctype html>\n"+_0xd["documentElement"]["outerHTML"]
 }
 
 async function _0xload(_0xp){
+const _0xid=++_0xrequestId;
 try{
 if(!_0xc)_0xc=await _0xsha();
 
@@ -72,8 +63,6 @@ if(_0xm)
 _0xurl.href=_0xroot+_0xm[1]+_0xurl.search+_0xurl.hash
 }
 
-_0xurl["searchParams"]["set"]("_cb",Date.now().toString());
-
 console["log"]("Commit:",_0xc,"Loading:",_0xurl["href"]);
 
 const _0xr=await fetch(_0xurl["href"],{cache:"no-store"});
@@ -83,11 +72,12 @@ throw new Error("HTTP "+_0xr.status+" while loading "+_0xurl["href"]);
 
 const _0xh=await _0xr["text"]();
 
+if(_0xid!==_0xrequestId)return;
 _0xu=_0xurl;
 _0xf["srcdoc"]=_0xb(_0xh,_0xurl)
 
 }catch(_0xx){
-_0xe(_0xx)
+if(_0xid===_0xrequestId)_0xe(_0xx)
 }
 }
 
@@ -117,14 +107,15 @@ return;
 let _0xn;
 
 try{
-_0xn=new URL(_0xh,_0xu)
+_0xn=new URL(_0xh,_0xd.baseURI||_0xu)
 }catch(_0xq){
 return
 }
 
 const _0xp=_0xn["pathname"]["toLowerCase"]();
 
-if(_0xp["endsWith"](".html")||_0xp["endsWith"](".htm")||_0xp["endsWith"]("/")){
+if(_0xn.protocol==="https:"&&_0xn.hostname==="cdn.jsdelivr.net"&&_0xn.pathname.startsWith("/gh/")&&
+(_0xp["endsWith"](".html")||_0xp["endsWith"](".htm")||_0xp["endsWith"]("/"))){
 _0xev["preventDefault"]();
 _0xload(_0xn["href"])
 }

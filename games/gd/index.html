@@ -40,9 +40,9 @@
         (function () {
             var GD_PROXY_HOSTS = [
                 "https://gd-proxy.webdashers.workers.dev",
-                "https://webdashers.webdashersdevelopement.workers.dev/",
-                "fallbackgdproxy.webdashers.workers.dev",
-                "fallback2.webdashers.workers.dev"
+                "https://webdashers.webdashersdevelopement.workers.dev",
+                "https://fallbackgdproxy.webdashers.workers.dev",
+                "https://fallback2.webdashers.workers.dev"
             ];
             window._gdProxyUrl = GD_PROXY_HOSTS[0];
             window._gdProxyHosts = GD_PROXY_HOSTS;
@@ -75,7 +75,7 @@
                     var attemptInput = isRequestObj ? new Request(attemptUrl, input) : attemptUrl;
 
                     return nativeFetch(attemptInput, init).then(function (res) {
-                        if ((res.status === 429 || res.status === 503) && attempts < GD_PROXY_HOSTS.length - 1) {
+                        if ((res.status === 429 || res.status >= 500) && attempts < GD_PROXY_HOSTS.length - 1) {
                             attempts++;
                             var nextIndex = (hostIndex + 1) % GD_PROXY_HOSTS.length;
                             return tryHost(nextIndex);
