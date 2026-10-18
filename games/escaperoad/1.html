@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Escape Road</title>
+<base href="https://cdn.jsdelivr.net/gh/wgfwpnew/assetsasd@4d9d9f111749b11b9dd25ccd5818aa70d846e53f/escaperoad/">
 
 <style>
 html, body {
@@ -82,13 +83,6 @@ async function start() {
     status.textContent = "Loading Unity...";
 
     await loadScript(ROOT + "TemplateData/loader.js");
-
-    /*
-     * Escape Road's additional SDK/game integration script.
-     * This should be the patched random.js where the empty
-     * dynamic script URL and unguarded Firebase calls were fixed.
-     */
-    await loadScript(ROOT + "random.js");
 
     if (typeof createUnityInstance !== "function") {
         throw new Error("createUnityInstance() was not defined");
