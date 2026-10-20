@@ -1,0 +1,1833 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+
+	<title>FOOTBALL BROS | Official Site</title>
+	<base href="cdn.jsdelivr.net/wgfwpnew/assetsasd@main/footballbros">
+
+	<meta name="description" content="Online multiplayer football! Bone crushing hits, long bombs, and tons more!" />
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="shortcut icon" type="image/png" href="./favicon.png">
+	<meta name="Keywords" content="Football, Play, Free, Online, Multiplayer, Games, IO, Sports, Scrolling, Friends">
+	<meta name="author" content="Blue Wizard Digital">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://footballbros.io" />
+	<meta property="og:title" content="Football Bros" />
+	<meta property="og:description" content="Online multiplayer football! Bone crushing hits, long bombs, and tons more!" />
+	<meta property="og:image" content="https://footballbros.io/splash.jpg" />
+	<link rel="manifest" href="manifest.json">
+
+		<script type="text/javascript" src="./FootballBros.js?th=1791892410"></script>
+
+	<script>
+
+		window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, { capture: false, passive: false });
+		if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+			var meta = document.getElementById ("viewport");
+			meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+		}
+		window.addEventListener('keydown', function(e) {
+			var tag = e.target.tagName;
+			if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+				e.preventDefault();
+			}
+		});
+		var aCo = "US";
+	</script>
+
+	<style>
+		html,body { margin: 0; padding: 0; height: 100%; background: #000000; color: orange; height: 100%; width: 100%; height: 100vh; width: 100vw; margin:0; padding:0;}
+		.body::-webkit-scrollbar { /* WebKit */
+ 			width: 0px;
+		}
+		#openfl-content { background: #000000; width: 100%; height: 100%; }
+		#spinner {
+			-webkit-transform-origin: 50% 50%;
+			-moz-transform-origin: 50% 50%;
+			-o-transform-origin: 50% 50%;
+			transform-origin: 50% 50%;
+			 width: 82px;
+			 height: 81px;
+			-webkit-animation: spin1 2s infinite linear;
+			-moz-animation: spin1 2s infinite linear;
+			-o-animation: spin1 2s infinite linear;
+			-ms-animation: spin1 2s infinite linear;
+			animation: spin1 2s infinite linear;
+		}
+
+
+
+
+		/* Main content styling */
+		#more {
+			display: flex;
+			justify-content: space-between;
+			background-color: #1a1a1a;
+			padding: 40px;
+			border-top: 0px solid #444;
+			color: #fff;
+			font-family: 'Arial', sans-serif;
+		}
+
+		.info-box {
+			width: 48%;
+			background-color: #222;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+		}
+
+		h3 {
+			font-size: 24px;
+			color: #ffa500; /* Football-themed color */
+			margin-bottom: 15px;
+		}
+
+		p, b {
+			line-height: 1.6;
+			font-size: 16px;
+		}
+
+		p {
+			margin-bottom: 10px;
+		}
+
+		b {
+			color: #ffd700; /* Highlighted question color */
+		}
+
+
+		/* unvisited link */
+		a:link {
+		color: #ffd700;
+		}
+
+		/* visited link */
+		a:visited {
+		color: #ffd700;
+		}
+
+		/* mouse over link */
+		a:hover {
+		color: #ffd700;
+		}
+
+		/* selected link */
+		a:active {
+		color: #ffd700;
+		}
+
+		.notch-top-left {
+			width: 20px;
+			height: 20px;
+			background-color: var(--background-color, #1a1a1a);
+			position: absolute;
+			top: -10px;
+			left: -10px;
+			clip-path: polygon(100% 0, 0 100%, 100% 100%);
+		}
+
+		/* Footer styling */
+		footer {
+			background-color: #000;
+			padding: 20px 0;
+			text-align: center;
+			color: #ccc;
+			font-size: 14px;
+			border-top: 2px solid #444;
+			margin-top: 40px;
+			font-family: 'Arial', sans-serif;
+			border: 0;
+		}
+
+		.feedback-form {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 50vw;
+		height: 50vh;
+		background-color: #2A6DB0;
+		padding: 20px;
+		border: 4px solid #FF0000;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+		text-align: center;
+		color: #FFFFFF;
+		}
+		.feedback-form h3 {
+		font-size: 24px;
+		margin-bottom: 20px;
+		color: #FFFFFF;
+		text-shadow: 2px 2px #000000;
+		}
+		.feedback-form textarea {
+		width: calc(100% - 20px);
+		height: 50%;
+		margin-bottom: 10px;
+		padding: 10px;
+		font-size: 16px;
+		font-family: 'Courier New', Courier, monospace;
+		border: 3px solid #000000;
+		background-color: #000000; /* Black background */
+		color: #FFFFFF; /* White text */
+		resize: none;
+		box-sizing: border-box;
+		}
+		.feedback-form button {
+		width: 100%;
+		padding: 12px;
+		background-color: #FFD700; /* Yellowish background */
+		color: #000000;
+		border: 3px solid #FF0000;
+		border-radius: 0;
+		font-size: 18px;
+		cursor: pointer;
+		font-family: 'Courier New', Courier, monospace;
+		text-shadow: 1px 1px #000000;
+		}
+		.feedback-form button:hover {
+		background-color: #FFB800; /* Slightly darker yellow on hover */
+		color: #FFFFFF;
+		}
+
+  	</style>
+
+
+	<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-GREB63PWEL"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		if(location.hostname != "localhost") gtag('config', "G-GREB63PWEL", { cookie_flags: 'secure;samesite=none' });
+	</script>
+		<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer',"GTM-TJ7G82BL");</script>
+	<!-- End Google Tag Manager -->
+	
+		<script>
+			//Interstitial ad available event
+			document.addEventListener("aip_interstitialadavailable", function(e) {
+				console.log("An interstitial ad is available");
+			});
+		</script>
+		<script>
+			console.log("Initting AIP")
+			window.aiptag = window.aiptag || {cmd: []};
+			aiptag.cmd.display = aiptag.cmd.display || [];
+			aiptag.cmd.player = aiptag.cmd.player || [];
+
+			//CMP tool settings
+			aiptag.consented = false; // GDPR setting, please set this value to false if an EU user has declined or not yet accepted marketing cookies, for users outside the EU please use true and for users accepted the GDPR also use true
+			aiptag.cmp = {
+				show: true,
+				position: "centered",
+				button: false,
+				buttonText: "Privacy settings",
+				buttonPosition: "bottom-left"
+			}
+
+			aiptag.cmd.player.push(function() {
+				adplayer = new aipPlayer({
+					AIP_ADBREAK_COMPLETE: function ()  {
+						console.log("Adbreak Completed");
+						Main.DoneInterstitialAd(false);
+					},
+					AD_WIDTH: 960,
+					AD_HEIGHT: 540,
+					AD_DISPLAY: 'default', //default, fullscreen, center, fill
+					TRUSTED: true,
+					LOADING_TEXT: 'loading advertisement',
+					PREROLL_ELEM: function(){return document.getElementById('preroll')},
+					AIP_COMPLETE: function (state)  {
+						/*******************
+						 ***** WARNING *****
+						*******************
+						Please do not remove the PREROLL_ELEM
+						from the page, it will be hidden automaticly.
+						If you do want to remove it use the AIP_REMOVE callback.
+						*/
+						Main.DoneVideoAd();
+						window.focus();
+						window.document.getElementById('openfl-content').focus();
+						if(state == null) state = 'null';
+						console.log('Video Ad Complete: '+state);
+						SendEvent('event', 'donevideo-'+lastUnitPlayed+"-"+state);
+					},
+					AIP_REMOVE: function ()  {
+						// Here it's safe to remove the PREROLL_ELEM from the page if you want. But it's not recommend.
+					}
+				});
+			});
+
+		</script>
+				<script async src="//api.adinplay.com/libs/aiptag/pub/SSK/footballbros.io/tag.min.js"></script>
+			
+	<script>
+
+		
+
+	function SetupMSNotification()
+	{
+		console.log("notifying");
+		if(typeof $msstart !== 'undefined')
+		{
+			console.log("notifying2");
+			var id = btoa("https:\/\/footballbros.io\/sbros_364x180.png");
+			$msstart.scheduleNotificationAsync({title: "Unlock new bros now!",
+												description: "You are just about to unlock a new Bro! Who will it be?",
+												type: 1,
+												minDelayInSeconds: 24*60*60
+											}).then(response => {
+					console.log("notification response: "+response);
+				});
+			$msstart.scheduleNotificationAsync({title: "Score all over your bros!",
+											description: "New bros just waiting to be scored on! Unlock them now!",
+											type: 1,
+											minDelayInSeconds: 24*7*60*60
+										}).then(response => {
+				console.log("notification response: "+response);
+			});
+
+  		}
+	}
+
+	var msAdID;
+	function LoadVideo()
+	{
+		if(typeof $msstart !== 'undefined')
+		{
+			$msstart.loadAdsAsync().then(adInstance => {
+    			// Use the adInstance.instanceId to make a call to showAdsAsync
+				msAdID = adInstance.instanceId;
+			});
+
+			SetupMSNotification();
+		}
+	}
+
+	function ShowVideo(theUnitName=null)
+	{
+		//Main.DoneVideoAd(true);
+		//return;//! when aip is live, remove this
+
+		console.log('SHOW_VIDEO:'+theUnitName);
+		var aUnitName = "";
+		if(typeof $msstart !== 'undefined')
+		{
+			$msstart.showAdsAsync(msAdID).then(adInstance => {
+   			 	// Use the adInstance.showAdsCompletedAsync to be notified of the completion of showing the advertisement
+				adInstance.showAdsCompletedAsync.then((val) => {
+					console.log('MS Video Ad Complete');
+					Main.DoneVideoAd();
+					window.focus();
+					window.document.getElementById('openfl-content').focus();
+					LoadVideo();
+				}).catch((err) => {
+					console.log('Ms Video Ad Error');
+					Main.DoneVideoAd();
+					window.focus();
+					window.document.getElementById('openfl-content').focus();
+					LoadVideo();
+				});
+			});
+		}
+		else if(typeof gCrazySDK !== 'undefined') {
+			gCrazySDK.addEventListener("adFinished", Main.DoneVideoAd); // reenable sound, enable ui
+			gCrazySDK.addEventListener("adError", Main.DoneVideoAd); // reenable sound, enable ui
+			gCrazySDK.requestAd();
+			console.log('CG_AD_REQUESTED');
+			SendEvent('event', 'cgvideo');
+			return;
+		}
+		else if (window.ascAds) {
+			console.log('[ASC] ShowVideo: ascAds=true, attempting preroll');
+			// Dynamically create preroll div on demand
+			var prerollDiv = ascGetOrCreateDiv("footballbros_preroll");
+			prerollDiv.style.display = 'block';
+			prerollDiv.style.visibility = 'visible';
+			prerollDiv.style.position = 'fixed';
+			prerollDiv.style.top = '50%';
+			prerollDiv.style.left = '50%';
+			prerollDiv.style.transform = 'translate(-50%, -50%)';
+			prerollDiv.style.zIndex = '150';
+			if (typeof pbjs !== 'undefined' && typeof pbjs.processAdsOnPage === 'function') {
+				lastUnitPlayed = 'asc_preroll';
+				SendEvent('event', 'startvideo-asc_preroll');
+				console.log('[ASC] ShowVideo: calling processAdsOnPage for preroll');
+				pbjs.que.push(function() { pbjs.processAdsOnPage(); });
+
+				// Create skip button as a SEPARATE fixed element on body
+				// (processAdsOnPage replaces ad div contents, destroying any children)
+				var skipBtn = document.createElement('div');
+				skipBtn.id = 'asc-preroll-skip';
+				skipBtn.style.cssText = 'position:fixed; bottom:calc(50% - 250px); right:calc(50% - 460px); z-index:200; background:rgba(0,0,0,0.7); color:#fff; padding:8px 16px; font-family:sans-serif; font-size:14px; border-radius:4px; cursor:default; user-select:none;';
+				document.body.appendChild(skipBtn);
+
+				var countdown = 5;
+				skipBtn.textContent = 'Skip in ' + countdown + '...';
+				var countdownInterval = setInterval(function() {
+					countdown--;
+					if (countdown > 0) {
+						skipBtn.textContent = 'Skip in ' + countdown + '...';
+					} else {
+						clearInterval(countdownInterval);
+						skipBtn.textContent = 'Skip Ad \u25B6';
+						skipBtn.style.cursor = 'pointer';
+						skipBtn.style.background = 'rgba(0,0,0,0.85)';
+						skipBtn.onmouseover = function() { skipBtn.style.background = 'rgba(50,50,50,0.95)'; };
+						skipBtn.onmouseout = function() { skipBtn.style.background = 'rgba(0,0,0,0.85)'; };
+						skipBtn.onclick = function() {
+							clearInterval(countdownInterval);
+							prerollDiv.style.display = 'none';
+							prerollDiv.style.visibility = 'hidden';
+							if (skipBtn.parentNode) skipBtn.parentNode.removeChild(skipBtn);
+							Main.DoneVideoAd();
+							window.focus();
+							window.document.getElementById('openfl-content').focus();
+							console.log('[ASC] ShowVideo: preroll skipped by user');
+						};
+					}
+				}, 1000);
+			} else {
+				console.warn('[ASC] ShowVideo: pbjs.processAdsOnPage not available, skipping preroll');
+				Main.DoneVideoAd();
+				window.focus();
+				window.document.getElementById('openfl-content').focus();
+			}
+		}
+		else if (window.optiAds) {
+			console.log('[OPTI] ShowVideo: no video ad support, completing immediately');
+			Main.DoneVideoAd();
+			window.focus();
+			window.document.getElementById('openfl-content').focus();
+		}
+		else if (typeof adplayer === 'undefined') {
+			var pr = document.getElementById('preroll');
+			if (pr) { pr.style.display = 'none'; pr.style.visibility = 'hidden'; }
+			Main.DoneVideoAd(true);
+			SendEvent('event', 'video_adblocked');
+			console.log('VIDEO_ADBLOCKED');
+
+		} else {
+			var aStr = 'preroll';
+			//if(theUnitName != null) aStr = theUnitName;
+			lastUnitPlayed = aStr;
+			SendEvent('event', 'startvideo-'+aStr);
+
+			aiptag.cmd.player.push(function() { adplayer.startVideoAd(theUnitName); });
+		}
+	}
+	</script>
+
+	<!-- Firebase App (the core Firebase SDK) -->
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+	<!-- Firebase Authentication -->
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+	<!-- Firebase Firestore (Database) -->
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+	<script>
+		// Your web app's Firebase configuration
+  		const firebaseConfig = {
+			apiKey: "AIzaSyAFCwYdbkLozIgtH5zuGydcjk_LNhYnve0",
+			authDomain: "football-bros-8f1b3.firebaseapp.com",
+			projectId: "football-bros-8f1b3",
+			storageBucket: "football-bros-8f1b3.appspot.com",
+			messagingSenderId: "807434051106",
+			appId: "1:807434051106:web:7e2fd59782e7c13165f47b"  		};
+
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		const auth = firebase.auth();
+		const db = firebase.firestore();
+		var userData = "";
+
+		function triggerSignIn()
+		{
+			var provider = new firebase.auth.GoogleAuthProvider();
+			auth.signInWithPopup(provider);
+		}
+
+				// Save game data function
+		function saveGameData(gameDataValue) {
+			console.log('saving gameData:' + gameDataValue);
+			var userId = auth.currentUser.uid;
+			userData = gameDataValue;
+			db.collection('users').doc(userId).set({
+				gameData: gameDataValue
+			}).then(function() {
+				console.log('Game data saved');
+			}).catch(function(error) {
+				console.error('Error saving game data:', error);
+			});
+		}
+
+		// Load game data function
+		function loadGameData() { return userData; }
+
+		function loadGameDataAsync() {
+			var userId = auth.currentUser.uid;
+			db.collection('users').doc(userId).get().then(function(doc) {
+				if (doc.exists) {
+					userData = doc.data().gameData;
+					//Main.LoadGlobals();
+					console.log('Game data:', doc.data().gameData);
+					if (typeof Main != "undefined")
+					{
+						Main.LoadDataComplete();
+					}
+				// Use the game data in your game
+				} else {
+				console.log('No such document!');
+				}
+			}).catch(function(error) {
+				console.error('Error loading game data:', error);
+			});
+		}
+
+   // Firebase auth state observer
+   		auth.onAuthStateChanged(function(user) {
+      		if (user) {
+				loadGameDataAsync();
+				SendEvent('event', 'sign_in');
+				console.log('user signed in');
+			} else {
+				console.log('No user signed in');
+				SendEvent('event', 'sign_out');
+			}
+    	});
+
+		function signOut()
+		{
+			auth.signOut().then(() => {
+				Main.SignOutComplete();
+				console.log('signed out');
+			});
+		}
+
+		function isUserLoggedIn() {
+			return auth.currentUser !== null;
+		}
+	</script>
+
+	
+</head>
+<body style="overflow:hidden;">
+	<noscript>Enable JavaScript bro!</noscript>
+		<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJ7G82BL"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+		<script>
+
+		//alert("Globals:"+localStorage.getItem("/:Globals").length);
+		/////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+		var url = window.location.href;
+		if(url.includes("www."))
+		{
+				url = url.replace("www.","");
+
+				var f = document.createElement('form');
+				f.action=url;
+				f.method='POST';
+				var i=document.createElement('input');
+				i.type='hidden';
+				i.name='FGlobals';
+				i.value=localStorage.getItem("/:Globals");
+				f.appendChild(i);
+
+				document.body.appendChild(f);
+				f.submit();
+		}
+		else
+		{
+				var aPost = "";
+								var aStorage = localStorage.getItem("/:Globals");
+				var aLen = 0;
+				if(aStorage != null && aStorage.length > 0)
+				{
+						aLen = aStorage.length;
+				}
+				if(aPost.length > aLen) localStorage.setItem("/:Globals", aPost);
+				if(aPost.length > 0 && aPost.length == aLen) localStorage.setItem("/:Globals", aPost);
+		}
+		/////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+
+	</script>
+
+    <div id="loading" style="position: absolute; z-index: 15; top: 60%; left: 50%; transform: translate(-50%, 0); background: black;">
+			<center><img src="assets/loading4.png"><br/>
+			<img src="assets/fbro.png">
+			<img src="assets/bbbro.png">
+			<img src="assets/sbro.png">
+			<img src="assets/wbro.png">
+			<img src="assets/kbro.png">
+			<img src="assets/kartbro.png">
+			<img src="assets/bbro.png">
+			<br/>
+			</center>
+	</div>
+	<!-- <div id="logo" style="position: fixed; bottom: 10px; right: 10px; z-index: 1000;"><img src="assets/bw_logo.gif"></div> -->
+
+
+	<div id="side-ad-left" style="display: none; position: fixed; top: 0; width: 300px; height: 100vh; background: #fff; z-index: 100; justify-content: center; align-items: center;">
+	</div>
+	<div id="game2" style="width: 100%; height: 100%; ">
+		<div id="openfl-content"  onblur="window.focus();"
+												style="width: 100%; float:left;"
+									>
+			<script type="text/javascript">
+				lime.embed ("FootballBros", "openfl-content", 0, 0, { parameters: {} });
+			</script>
+		</div>
+		<div id="preroll" style="width: 960px; height: 540px; display: none; position: absolute; top: 50%; left: 50%; z-index: 100; transform: translate(-50%, -50%);">
+		</div>
+
+				<div id="footballbros-io_160x600" style="width: 160px; height: 600px; visibility:hidden; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="footballbros-io_160x600_2" style="width: 160px; height: 600px; visibility:hidden; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="footballbros-io_300x250" style="width: 336px; height: 280px; visibility:hidden; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="footballbros-io_300x250_2" style="width: 336px; height: 280px; visibility:hidden; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<script>
+			// Preload 300x250 units so they're ready for the title screen
+			(window.aiptag = window.aiptag || {cmd: {display: []}});
+			aiptag.cmd.display = aiptag.cmd.display || [];
+			aiptag.cmd.display.push(function() {
+				aipDisplayTag.display('footballbros-io_300x250');
+				aipDisplayTag.display('footballbros-io_300x250_2');
+			});
+		</script>
+		<div id="footballbros-io_300x600" style="visibility:hidden; width: 300px; height: 600px; position: absolute; left: 30px; z-index: 100; overflow: hidden; background-color: rgba(0,0,0,0.5);">
+		</div>
+		<div id="footballbros-io_728x90" style="visibility:hidden; width: 728px; height: 90px; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="footballbros-io_728x90_m" style="visibility:hidden; width: 728px; height: 90px; position: absolute; top: 30px; left: 30px; z-index: 100;overflow: hidden;">
+		</div>
+		<div id="footballbros-io_970x250" style="visibility:hidden; width: 970px; height: 250px; position: absolute; top: 30px; left: 30px; z-index: 100; text-align: center;overflow: hidden;">
+		</div>
+		
+		
+
+		<div class="feedback-form" id="feedbackForm" style="display:none;">
+			<h3>Report a Bug/Glitch</h3>
+			<textarea id="feedback" placeholder="Describe the bug or glitch with a lot of details, like how to make the glitch happen and anything else whether it seems useful or not..."></textarea>
+			<textarea id="email" placeholder="Email address (optional)" style="height: 50px;"></textarea>
+			<textarea id="discord" placeholder="Discord ID (optional)" style="height: 50px;"></textarea>
+			<button onclick="sendFeedback()" id="submitBtn">Submit Feedback</button>
+			<br/>
+			<br/>
+			<button onclick="document.getElementById('feedbackForm').style.display='none'" id="submitBtn">Cancel</button>
+			<p id="responseMsg"></p>
+		</div>
+		<script>
+			//                                                                                                                          var doFeedback = true;
+			function getOSFromUserAgent() {
+				const userAgent = navigator.userAgent;
+				const platform = navigator.platform;
+
+				// Check for common platforms and OS
+				if (/Windows NT/i.test(userAgent)) return 'Windows';
+				if (/Mac OS X/i.test(userAgent)) return 'macOS';
+				if (/Linux/i.test(userAgent)) return 'Linux';
+				if (/Android/i.test(userAgent)) return 'Android';
+				if (/iPhone|iPad|iPod/i.test(userAgent)) return 'iOS';
+				if (/CrOS/i.test(userAgent)) return 'Chrome OS';
+
+				// Default to the platform if no match
+				return platform || 'Unknown';
+			}
+			async function sendFeedback() {
+				var feedback = '*'+document.getElementById("feedback").value.trim()+'*';
+				var email = document.getElementById("email").value.trim();
+				var discord = document.getElementById("discord").value.trim();
+				const screenResolution = `${window.screen.width}x${window.screen.height}`;
+				const windowResolution = `${window.innerWidth}x${window.innerHeight}`;
+				var aOS = getOSFromUserAgent();
+				var aCity = "Bel Air";
+                const hostname = window.location.hostname;
+				const gpu = (() => {
+					const canvas = document.createElement('canvas');
+					const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+					const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
+					const gpuInfo = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unknown';
+
+					// Cleanup
+					canvas.remove(); // Remove the canvas from the DOM (if it was added)
+					return gpuInfo;
+				})();
+
+				feedback = feedback + '\nDomain: ' + hostname;
+				feedback = feedback + ', OS: ' + aOS;
+				feedback = feedback + ', Screen res: ' + screenResolution;
+				feedback = feedback + ', Window res: ' + windowResolution;
+				feedback = feedback + ', GPU: ' + gpu;
+				feedback = feedback + ', City: ' + aCity;
+				feedback = feedback + ', Email: ' + email;
+				feedback = feedback + ', Discord: ' + discord;
+
+				const responseMsg = document.getElementById("responseMsg");
+				const submitBtn = document.getElementById("submitBtn");
+
+				if (!feedback) {
+				alert("Please enter feedback.");
+				return;
+				}
+
+				submitBtn.disabled = true;
+				responseMsg.textContent = "Submitting...";
+
+				try {
+				const response = await fetch("sendFeedback.php", {
+					method: "POST",
+					headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+					},
+					body: new URLSearchParams({
+					feedback: feedback
+					})
+				});
+
+				const result = await response.json();
+
+				if (result.status === "success") {
+					document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+					alert(result.message); // Show success message
+				} else {
+					document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+					alert(result.message); // Show error message
+				}
+				} catch (error) {
+					document.getElementById("feedbackForm").style.display = "none"; // Close the feedback form
+					alert("Error submitting feedback. Please try again.");
+				}
+
+				submitBtn.disabled = false;
+			}
+		</script>
+
+
+
+	</div>
+	<br/>
+	<div tabindex="-1" id="more">
+				<div class="info-box">
+			<h3>About Football Bros</h3>
+			<p>Football Bros is a simple, fast-paced football game with all kinds of crazy action! With online multiplayer gameplay, lots of plays, and all kinds of crazy football action!</p>
+			<p>The controls are very simple: Use either the arrow keys or WASD to control your bro. Space bar will throw a pass, dive, or stiff arm, depending on the situation.</p>
+			<br/>
+						<h3>Changelog (11/13/2025)</h3>
+						<p>Fixed mathbros kickoff glitch.</p>
+						<p>Moved the two point conversion and extra point line of scrimmage back to the 10 yard line.</p>
+						<p>Added Indiana Irish to college. This now makes 64 teams and there are no bye weeks that caused black screens.</p>
+						<p>Buffed New England and Denver QB. Nerfed Chicago QB a little.</p>
+								</div>
+		<div class="info-box">
+			<h3>FAQ</h3>
+						<b>Why isn't the game loading?</b>
+			<p>You should check your internet connection and make sure our site isn't blocked. Also, disable all ad blockers.</p>
+						<b>How do I play?</b>
+			<p>Use your arrow keys and space bar! The rest is easy- pick your play and go!</p>
+						<b>Which browser should I use?</b>
+			<p>You should use Chrome. It is the only browser guaranteed to work. Football Bros has also been tested to work on Firefox and Safari, but not guaranteed.</p>
+						<b>Do you have a favorite team?</b>
+			<p>Yes, but we're not saying which one. Drop us an e-mail if you think you know.</p>
+						<b>I'm blocked, where else can I play?</b>
+			<p>Check here, these links work for both football and basket bros: <a tabindex="-1" href="https://sites.google.com/bluewizard.com/basket-bros-unblocked">Football Bros Unblocked</a></p>
+									<b>Are there more Bros games?</b>
+			<p>Yes! Check out <a tabindex="-1" href="https://basketbros.io">Basket Bros</a>, <a tabindex="-1" href="https://soccerbros.gg">Soccer Bros</a>, <a tabindex="-1" href="https://wrestlebros.io">Wrestle Bros</a></p>
+					</div>
+			</div>
+	<footer tabindex="-1">
+		<div class="footer-links">
+			<a tabindex="-1" href="https://bluewizard.com">Copyright 2026 Blue Wizard Digital</a> |
+			<a tabindex="-1" href="https://bluewizard.com/terms/">Terms of Service</a> |
+			<a tabindex="-1" href="https://bluewizard.com/privacypolicy/">Privacy Policy</a>
+		</div>
+	</footer>
+	<script>
+		// New global state for ad refresh timing and one-time checks
+		var adRefreshStates = {};
+		var adLastShown = {};      // tracks when each ad was last loaded/refreshed (ms timestamp)
+		var AD_MIN_AGE = 20000;    // minimum ms before an ad can be refreshed (20 seconds)
+		var adPrefix = "footballbros-io";
+		var prerollId = "footballbros_preroll";
+
+		function refreshTag(theTag) {
+			try {
+				delete aipNeedsRefresh[theTag];
+				aiptag.cmd.display.push(function() { aipDisplayTag.refresh(theTag); });
+				console.log('Tag refreshed successfully');
+			} catch (error) {
+				console.error('Error refreshing the tag:', error);
+			}
+		}
+
+		// ---- AdinPlay hide workaround ----
+		// aipDisplayTag.destroy() doesn't stick: AdinPlay keeps rendering into a slot after
+		// it has been destroyed, so hidden ads keep serving with zero viewability, which drags
+		// CPMs down. So on hide we destroy the tag AND take the slot's div out of the document
+		// ("park" it). With no container in the page there is nothing to render into. The div
+		// goes back exactly where it was the next time the game shows that slot.
+		var aipParked = {};        // divName -> { el, parent, observer, reported }
+		var aipNeedsRefresh = {};  // divName -> true once destroyed; the next show must refresh
+
+		function isAipSlot(divName) {
+			return !window.optiAds && !window.ascAds && typeof divName === 'string'
+				&& divName.indexOf(adPrefix + '_') === 0;
+		}
+
+		function aipDestroySlot(divName) {
+			if (typeof aipDisplayTag === 'undefined') return;
+			aipNeedsRefresh[divName] = true;
+			delete adLastShown[divName];  // destroyed, so the "young ad, re-show without refresh" path no longer applies
+			try {
+				aiptag.cmd.display.push(function() {
+					if (typeof aipDisplayTag !== 'undefined') aipDisplayTag.destroy(divName);
+				});
+			} catch (error) {
+				console.error('Error destroying aip tag ' + divName + ':', error);
+			}
+		}
+
+		function aipParkSlot(divName) {
+			if (aipParked[divName]) return;
+			var el = document.getElementById(divName);
+			if (!el || !el.parentNode) return;
+			var rec = { el: el, parent: el.parentNode, observer: null, reported: false };
+			el.innerHTML = '';
+			el.parentNode.removeChild(el);
+			// If AdinPlay still writes into the (now detached) div, wipe it and report it once
+			rec.observer = new MutationObserver(function() {
+				if (!el.firstChild) return;
+				el.innerHTML = '';
+				if (!rec.reported) {
+					rec.reported = true;
+					console.warn('[AIP] rendered into hidden slot after destroy: ' + divName);
+					SendEvent('event', 'aip_render_while_hidden');
+				}
+			});
+			rec.observer.observe(el, { childList: true, subtree: true });
+			aipParked[divName] = rec;
+		}
+
+		function aipUnparkSlot(divName) {
+			var rec = aipParked[divName];
+			if (!rec) return;
+			delete aipParked[divName];
+			rec.observer.disconnect();
+			// A different element took this id while ours was out of the page -- ours wins
+			var other = document.getElementById(divName);
+			if (other && other !== rec.el) {
+				console.warn('[AIP] another element took the id of hidden slot ' + divName + ', replacing it');
+				SendEvent('event', 'aip_slot_id_taken');
+				other.remove();
+			}
+			var parent = rec.parent.isConnected ? rec.parent : document.getElementById('game2');
+			parent.appendChild(rec.el);
+		}
+
+		// Track when a banner ad actually renders content
+		var lastAdRenderedTime = 0;
+		var _adObserver = null;
+		var _adFallbackTimer = null;
+		function getAdRenderedTime() { return lastAdRenderedTime; }
+		function resetAdRenderedTime() {
+			lastAdRenderedTime = 0;
+			if (_adObserver) { _adObserver.disconnect(); _adObserver = null; }
+			if (_adFallbackTimer) { clearTimeout(_adFallbackTimer); _adFallbackTimer = null; }
+		}
+		function markAdRendered(reason) {
+			if (lastAdRenderedTime > 0) return;
+			lastAdRenderedTime = Date.now();
+			console.log('Ad rendered (' + reason + ') at ' + lastAdRenderedTime);
+			if (_adObserver) { _adObserver.disconnect(); _adObserver = null; }
+			if (_adFallbackTimer) { clearTimeout(_adFallbackTimer); _adFallbackTimer = null; }
+		}
+		function watchAdDiv(divName) {
+			resetAdRenderedTime();
+
+			// Determine which element to watch
+			var el = null;
+			if (window.optiAds && optiSlotMap[divName]) {
+				el = optiGetDiv(optiSlotMap[divName]);
+			}
+			if (!el) {
+				el = document.getElementById(divName);
+			}
+			if (!el) { markAdRendered('no div'); return; }
+
+			function watchIframe(iframe) {
+				try {
+					if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete' && iframe.offsetHeight > 5) {
+						markAdRendered('iframe already loaded');
+						return;
+					}
+				} catch(e) {}
+				iframe.addEventListener('load', function() {
+					markAdRendered('iframe load');
+				});
+				var pollCount = 0;
+				var poll = setInterval(function() {
+					pollCount++;
+					if (iframe.offsetHeight > 5 && iframe.offsetWidth > 5) {
+						clearInterval(poll);
+						markAdRendered('iframe dimensions');
+					}
+					if (pollCount > 40) clearInterval(poll);
+				}, 100);
+			}
+
+			// Fallback: if no iframe appears within 3s, ad failed to load
+			_adFallbackTimer = setTimeout(function() {
+				markAdRendered('no ad loaded');
+			}, 3000);
+
+			var existing = el.querySelector('iframe');
+			if (existing) { watchIframe(existing); return; }
+
+			_adObserver = new MutationObserver(function() {
+				var iframe = el.querySelector('iframe');
+				if (iframe) {
+					_adObserver.disconnect();
+					_adObserver = null;
+					watchIframe(iframe);
+				}
+			});
+			_adObserver.observe(el, { childList: true, subtree: true });
+		}
+
+		// ASC: slot name -> default size mapping (built from config prefix)
+		var ascSlotSizes = {};
+		ascSlotSizes[adPrefix+'_160x600'] = {w: 160, h: 600};
+		ascSlotSizes[adPrefix+'_160x600_2'] = {w: 160, h: 600};
+		ascSlotSizes[adPrefix+'_300x250'] = {w: 336, h: 280};
+		ascSlotSizes[adPrefix+'_300x250_2'] = {w: 336, h: 280};
+		ascSlotSizes[adPrefix+'_300x600'] = {w: 300, h: 600};
+		ascSlotSizes[adPrefix+'_728x90'] = {w: 728, h: 90};
+		ascSlotSizes[adPrefix+'_728x90_m'] = {w: 728, h: 90};
+		ascSlotSizes[adPrefix+'_970x250'] = {w: 970, h: 250};
+		ascSlotSizes[prerollId] = {w: 960, h: 540};
+
+		// Cache of dynamically created ASC divs (keyed by slot name)
+		var ascDivCache = {};
+
+		// ASC helper: get or create a div with ot-name for a given slot
+		function ascGetOrCreateDiv(slotName) {
+			// Return cached div if it still exists in DOM
+			if (ascDivCache[slotName] && ascDivCache[slotName].parentNode) {
+				return ascDivCache[slotName];
+			}
+			var size = ascSlotSizes[slotName] || {w: 300, h: 250};
+			var div = document.createElement('div');
+			div.setAttribute('ot-name', slotName);
+			div.style.width = size.w + 'px';
+			div.style.height = size.h + 'px';
+			div.style.visibility = 'hidden';
+			div.style.position = 'absolute';
+			div.style.zIndex = '100';
+			div.style.overflow = 'hidden';
+			div.style.top = '30px';
+			div.style.left = '30px';
+			document.getElementById('game2').appendChild(div);
+			ascDivCache[slotName] = div;
+			console.log('[ASC] Created dynamic div for slot: ' + slotName + ' (' + size.w + 'x' + size.h + ')');
+			return div;
+		}
+
+		// ASC helper: find existing div by ot-name (for ShowUnitBannerAd compatibility)
+		function ascGetDiv(divName) {
+			return ascDivCache[divName] || document.querySelector('[ot-name="' + divName + '"]');
+		}
+
+		// ASC: timer for batching processAdsOnPage calls
+		var ascProcessTimer = null;
+
+		// ASC: called from Haxe Main.ShowAd() when ascAds is true
+		function ShowAscAd(divName, theX, theY, xAlign, yAlign, doRefresh) {
+			if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) return;
+
+			// Dynamically create the ot-name div if it doesn't exist yet
+			var aDiv = ascGetOrCreateDiv(divName);
+
+			aDiv.style.display = 'block';
+			aDiv.style.visibility = 'visible';
+
+			// Position the div (mirrors Haxe ShowAd positioning logic)
+			var contentEl = document.getElementById('openfl-content');
+			var w2 = contentEl ? contentEl.offsetWidth : window.innerWidth;
+			var h2 = window.innerHeight;
+			var aScaleX = 1500 / w2; // Main.SCREENWIDTH
+			var aScaleY = 768 / h2;  // Main.SCREENHEIGHT
+			var adPosX = w2 / 2 + theX / aScaleX;
+			var adPosY = h2 / 2 + theY / aScaleY;
+
+			var aDivHeight = aDiv.offsetHeight || 280;
+			var aDivWidth = aDiv.offsetWidth || 336;
+
+			if (yAlign === 'center') adPosY -= aDivHeight / 2;
+			else if (yAlign === 'bottom') adPosY -= aDivHeight;
+			if (xAlign === 'center') adPosX -= aDivWidth / 2;
+			else if (xAlign === 'right') adPosX -= aDivWidth;
+
+			if (contentEl) adPosX += contentEl.offsetLeft;
+
+			aDiv.style.left = adPosX + 'px';
+			aDiv.style.top = adPosY + 'px';
+
+			// Batch processAdsOnPage with setTimeout so all ShowAscAd calls in
+			// the same frame create their divs first, then ONE processAdsOnPage
+			// call discovers and processes them all at once.
+			if (doRefresh && typeof pbjs !== 'undefined' && typeof pbjs.processAdsOnPage === 'function') {
+				if (ascProcessTimer) clearTimeout(ascProcessTimer);
+				ascProcessTimer = setTimeout(function() {
+					ascProcessTimer = null;
+					pbjs.que.push(function() {
+						pbjs.processAdsOnPage();
+						console.log('[ASC] processAdsOnPage executed (batched)');
+					});
+				}, 50);
+				SendEvent('event', 'asc_banner_requested');
+			}
+			console.log('[ASC] ShowAscAd: ' + divName + ' at ' + adPosX + ',' + adPosY);
+		}
+
+		// ASC: called from Haxe Main.HideAd() when ascAds is true
+		function HideAscAd(divName, justClear) {
+			var aDiv = ascGetDiv(divName);
+			if (!aDiv) {
+				// Not an asc ad div — fall back to getElementById (for loading, logo, etc.)
+				aDiv = document.getElementById(divName);
+			}
+			if (aDiv) {
+				if (!justClear) {
+					aDiv.style.visibility = 'hidden';
+					aDiv.style.pointerEvents = 'none';
+				}
+				aDiv.innerHTML = '';
+			}
+		}
+
+		// ASC: called from Haxe ManageAdSizes() when ascAds is true
+		function AscManageAdSizes(shouldHide) {
+			var div1 = ascGetDiv(adPrefix+'_160x600');
+			var div2 = ascGetDiv(adPrefix+'_160x600_2');
+			if (shouldHide) {
+				if (div1) { div1.style.width = '0px'; div1.style.visibility = 'hidden'; div1.style.pointerEvents = 'none'; }
+				if (div2) { div2.style.width = '0px'; div2.style.visibility = 'hidden'; div2.style.pointerEvents = 'none'; }
+			} else {
+				if (div1) { div1.style.width = '170px'; div1.style.display = 'block'; div1.style.visibility = 'visible'; }
+				if (div2) { div2.style.width = '170px'; div2.style.display = 'block'; div2.style.visibility = 'visible'; }
+			}
+		}
+
+		// Opti Digital: slot mapping from AIP div names to Opti slot class names.
+		// w/h = known ad dimensions. Divs are created dynamically on first show.
+		var optiSlotMap = {};
+		var optiAllowed = {};   // which divNames are currently allowed to be visible
+		var optiDivs = {};      // dynamically created divs, keyed by className
+		if (window.optiAds) {
+			optiSlotMap[adPrefix+'_970x250'] = { className: 'Billboard_1', w: 970, h: 250 };
+			optiSlotMap[adPrefix+'_728x90'] = { className: 'Leaderboard_1', w: 728, h: 90 };
+			optiSlotMap[adPrefix+'_728x90_m'] = { className: 'Leaderboard_1', w: 728, h: 90 };
+			optiSlotMap[adPrefix+'_300x250'] = { className: 'Rectangle_1', w: 300, h: 250 };
+			optiSlotMap[adPrefix+'_300x250_2'] = { className: 'Rectangle_2', w: 300, h: 250 };
+			optiSlotMap[adPrefix+'_300x600'] = { className: 'HalfpageAd_1', w: 300, h: 600 };
+		}
+
+		// Look up an existing Opti div without creating one.
+		function optiGetDiv(slot) {
+			return optiDivs[slot.className] || null;
+		}
+
+		// Apply stored positioning to the current posTarget (wrapper if wrapped, else inner div)
+		function optiApplyPosition(div) {
+			var pos = div._optiPos;
+			if (!pos) return;
+			var posTarget = div.closest('.optidigital-wrapper-div') || div;
+			posTarget.style.display = 'block';
+			posTarget.style.position = 'absolute';
+			posTarget.style.zIndex = '100';
+			posTarget.style.width = pos.w + 'px';
+			posTarget.style.height = pos.h + 'px';
+			posTarget.style.left = pos.x + 'px';
+			posTarget.style.top = pos.y + 'px';
+		}
+
+		// Get the Opti div for a slot, creating it on first call.
+		// Opti's SDK auto-discovers new divs, sets up the GPT slot, and loads the ad.
+		// On first creation, also installs a MutationObserver so when the SDK wraps our div
+		// with .optidigital-wrapper-div we re-apply positioning to the wrapper.
+		function optiGetOrCreateDiv(slot) {
+			if (optiDivs[slot.className]) return optiDivs[slot.className];
+			var div = document.createElement('div');
+			div.className = slot.className;
+			div.style.position = 'absolute';
+			div.style.zIndex = '100';
+			div.style.overflow = 'hidden';
+			div.style.display = 'block';
+			document.body.appendChild(div);
+			optiDivs[slot.className] = div;
+
+			// Watch for the SDK wrapping our div — re-apply positioning to the wrapper when it appears
+			var wrapped = false;
+			var observer = new MutationObserver(function() {
+				if (wrapped) return;
+				if (div.closest('.optidigital-wrapper-div')) {
+					wrapped = true;
+					optiApplyPosition(div);
+					console.log('[OPTI] .' + slot.className + ' wrapped, re-applied position');
+					observer.disconnect();
+				}
+			});
+			observer.observe(document.body, { childList: true, subtree: true });
+
+			console.log('[OPTI] created div .' + slot.className);
+			return div;
+		}
+
+		// Preload 300x250 units for the title screen (Opti SDK auto-discovers by class name)
+		if (window.optiAds) {
+			optiGetOrCreateDiv(optiSlotMap[adPrefix+'_300x250']);
+			optiGetOrCreateDiv(optiSlotMap[adPrefix+'_300x250_2']);
+		}
+
+		// Override the Opti Digital ad unit path (e.g. /21743024831/football_bros/home)
+		function SetOptiAdUnit(path) {
+			if (!window.optiAds) return;
+			try {
+				if (typeof odT !== 'undefined' && odT.initConfig) {
+					odT.initConfig.adUnit = path;
+					console.log('[OPTI] adUnit set to: ' + path);
+				} else {
+					console.log('[OPTI] SetOptiAdUnit: odT not ready, queuing');
+					// Retry once after a short delay in case SDK hasn't initialized yet
+					setTimeout(function() {
+						if (typeof odT !== 'undefined' && odT.initConfig) {
+							odT.initConfig.adUnit = path;
+							console.log('[OPTI] adUnit set to (delayed): ' + path);
+						}
+					}, 500);
+				}
+			} catch(e) { console.log('[OPTI] SetOptiAdUnit error: ' + e); }
+		}
+
+		function ShowOptiAd(divName, theX, theY, xAlign, yAlign, doRefresh, screenW, screenH) {
+			if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) return;
+			var slot = optiSlotMap[divName];
+			if (!slot) { console.log('[OPTI] ShowOptiAd: no mapping for ' + divName); return; }
+
+			var aDiv = optiGetOrCreateDiv(slot);
+
+			// Position using known dimensions
+			var contentEl = document.getElementById('openfl-content');
+			var w2 = contentEl ? contentEl.offsetWidth : window.innerWidth;
+			var h2 = window.innerHeight;
+			var aScaleX = screenW / w2;
+			var aScaleY = screenH / h2;
+			var adPosX = w2 / 2 + theX / aScaleX;
+			var adPosY = h2 / 2 + theY / aScaleY;
+
+			if (yAlign === 'center') adPosY -= slot.h / 2;
+			else if (yAlign === 'bottom') adPosY -= slot.h;
+			if (xAlign === 'center') adPosX -= slot.w / 2;
+			else if (xAlign === 'right') adPosX -= slot.w;
+
+			if (contentEl) {
+				adPosX += contentEl.offsetLeft;
+				adPosY += contentEl.offsetTop;
+			}
+
+			// Store desired position so the wrap observer can re-apply it after SDK wraps the div
+			aDiv._optiPos = { x: adPosX, y: adPosY, w: slot.w, h: slot.h };
+			optiApplyPosition(aDiv);
+
+			optiAllowed[divName] = true;
+
+			// Refresh GPT slot if it exists. On first show the SDK hasn't yet bound a slot —
+			// it will discover the new div and load the initial ad on its own.
+			if (doRefresh) {
+				googletag.cmd.push(function() {
+					if (!optiAllowed[divName]) return;
+					var gptSlots = googletag.pubads().getSlots();
+					for (var i = 0; i < gptSlots.length; i++) {
+						var slotEl = gptSlots[i].getSlotElementId();
+						var el = document.getElementById(slotEl);
+						if (el && aDiv.contains(el)) {
+							googletag.pubads().refresh([gptSlots[i]]);
+							console.log('[OPTI] GPT refresh slot: ' + slotEl + ' for ' + divName);
+							break;
+						}
+					}
+				});
+				SendEvent('event', 'opti_banner_requested');
+			}
+			console.log('[OPTI] ShowOptiAd: ' + divName + ' -> .' + slot.className + ' at ' + Math.round(adPosX) + ',' + Math.round(adPosY));
+		}
+
+		function optiDestroyDiv(slot) {
+			var aDiv = optiDivs[slot.className];
+			if (!aDiv) return;
+			var toRemove = aDiv.closest('.optidigital-wrapper-div') || aDiv;
+			if (toRemove.parentNode) toRemove.parentNode.removeChild(toRemove);
+			delete optiDivs[slot.className];
+		}
+
+		function HideOptiAd(divName) {
+			delete optiAllowed[divName];
+			var slot = optiSlotMap[divName];
+			if (slot) {
+				optiDestroyDiv(slot);
+			} else {
+				var aDiv = document.getElementById(divName);
+				if (aDiv) { aDiv.style.visibility = 'hidden'; aDiv.style.pointerEvents = 'none'; }
+			}
+		}
+
+		// Base function to show a single banner ad unit
+		function ShowUnitBannerAd(config) {
+			if (!config.allowMobile && /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) {
+				return;
+			}
+
+			if (config.minWindowWidth && window.innerWidth < config.minWindowWidth) {
+				return;
+			}
+
+			const now = new Date().getTime();
+
+			var adElement;
+			if (window.ascAds) {
+				adElement = ascGetDiv(config.elementId);
+			} else {
+				aipUnparkSlot(config.elementId);
+				adElement = window.document.getElementById(config.elementId);
+			}
+			if (!adElement) {
+				console.warn('ShowUnitBannerAd: element NOT found:', config.elementId);
+				return;
+			}
+			adElement.style.display = '';
+			adElement.style.visibility = 'visible';
+
+			// If ad was loaded less than 20s ago, just re-show the div without refreshing
+			// Skip this guard for manually-controlled persistent units
+			var lastShown = adLastShown[config.elementId] || 0;
+			if (lastShown > 0 && (now - lastShown < AD_MIN_AGE)) {
+				console.log('Ad ' + config.elementId + ' is ' + Math.round((now - lastShown)/1000) + 's old, re-showing without refresh');
+				return;
+			}
+
+			if (typeof gCrazySDK !== 'undefined') {
+				if (config.crazySdkBannerIds && config.crazySdkBannerIds.length > 0) {
+					gCrazySDK.requestResponsiveBanner(config.crazySdkBannerIds);
+					adLastShown[config.elementId] = now;
+				}
+			} else if (window.ascAds && typeof pbjs !== 'undefined' && typeof pbjs.refreshSlot === 'function' && config.aipRefreshId) {
+				pbjs.refreshSlot(config.aipRefreshId);
+				SendEvent('event', 'asc_banner_requested');
+				adLastShown[config.elementId] = now;
+			} else if (typeof aipDisplayTag !== 'undefined' && config.aipRefreshId) {
+				refreshTag(config.aipRefreshId);
+				SendEvent('event', 'aip_banner_requested');
+				adLastShown[config.elementId] = now;
+			} else {
+				// Ads are likely blocked
+				if (config.adBlockedFallbackImage) {
+					adElement.style.backgroundImage = `url(${config.adBlockedFallbackImage})`;
+					SendEvent('event', 'banner_adblocked_message_shown');
+				} else {
+					SendEvent('event', 'banner_adblocked');
+				}
+			}
+		}
+
+		function ShowAd1() { // doRefresh parameter was unused
+			if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) { // Outer mobile check
+ 				return;
+			}
+
+			const commonConfig = {
+				allowMobile: false, // ShowUnitBannerAd will re-check, this is for consistency
+				minWindowWidth: 0,
+				performProsperLegacyCheck: false,
+				adBlockedFallbackImage: null, // Original ShowAd1 had no specific fallback image
+			};
+
+			if (typeof gCrazySDK !== 'undefined') {
+				// gCrazySDK is active
+				ShowUnitBannerAd({
+					...commonConfig,
+					timerId: "showAd1_gCrazySdkTimer",
+					elementId: adPrefix+'_160x600',
+					crazySdkBannerIds: [adPrefix+'_160x600'],
+					aipRefreshId: null,
+					refreshTimeout: 10000
+				});
+
+				ShowUnitBannerAd({
+					...commonConfig,
+					timerId: "showAd1_el2_gCrazySdkPath_visTimer",
+					elementId: adPrefix+'_160x600_2',
+					crazySdkBannerIds: null,
+					aipRefreshId: null,
+					refreshTimeout: 0
+				});
+			} else if (window.ascAds || typeof aipDisplayTag !== 'undefined') {
+				ShowUnitBannerAd({
+					...commonConfig,
+					timerId: "showAd1_el1_aipTimer",
+					elementId: adPrefix+'_160x600',
+					crazySdkBannerIds: null,
+					aipRefreshId: adPrefix+'_160x600',
+					refreshTimeout: 0
+				});
+				ShowUnitBannerAd({
+					...commonConfig,
+					timerId: "showAd1_el2_aipTimer",
+					elementId: adPrefix+'_160x600_2',
+					crazySdkBannerIds: null,
+					aipRefreshId: adPrefix+'_160x600_2',
+					refreshTimeout: 0
+				});
+			} else {
+				ShowUnitBannerAd({ ...commonConfig, timerId: "showAd1_el1_fallbackTimer", elementId: adPrefix+'_160x600', crazySdkBannerIds: null, aipRefreshId: null, refreshTimeout: 0 });
+				ShowUnitBannerAd({ ...commonConfig, timerId: "showAd1_el2_fallbackTimer", elementId: adPrefix+'_160x600_2', crazySdkBannerIds: null, aipRefreshId: null, refreshTimeout: 0 });
+			}
+		}
+
+		function ShowAd6()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd6Timer",
+				elementId: adPrefix+'_300x250',
+				allowMobile: true,
+				minWindowWidth: 0,
+				crazySdkBannerIds: null,
+				aipRefreshId: adPrefix+'_300x250',
+				performProsperLegacyCheck: true,
+				adBlockedFallbackImage: null,
+				refreshTimeout: 10000
+			});
+		}
+
+		function ShowAd2()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd2Timer",
+				elementId: adPrefix+'_300x250_2',
+				allowMobile: false,
+				minWindowWidth: 0,
+				crazySdkBannerIds: [adPrefix+'_300x250', adPrefix+'_300x250_2'],
+				aipRefreshId: adPrefix+'_300x250_2',
+				performProsperLegacyCheck: true,
+				adBlockedFallbackImage: null,
+				refreshTimeout: 10000
+			});
+		}
+
+		function ShowAd3()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd3Timer",
+				elementId: adPrefix+'_728x90',
+				allowMobile: false,
+				minWindowWidth: 0,
+				crazySdkBannerIds: [adPrefix+'_728x90'],
+				aipRefreshId: adPrefix+'_728x90',
+				performProsperLegacyCheck: false,
+				adBlockedFallbackImage: null,
+
+				refreshTimeout: 0
+			});
+		}
+
+		function ShowAd4()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd4Timer",
+				elementId: adPrefix+'_300x250',
+				allowMobile: false,
+				minWindowWidth: 1200,
+				crazySdkBannerIds: [adPrefix+'_300x250'],
+				aipRefreshId: adPrefix+'_300x250',
+				performProsperLegacyCheck: true,
+				adBlockedFallbackImage: null,
+				refreshTimeout: 0
+			});
+		}
+
+		function ShowAd7()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd7Timer",
+				elementId: adPrefix+'_300x250_2',
+				allowMobile: false,
+				minWindowWidth: 1200,
+				crazySdkBannerIds: [adPrefix+'_300x250_2'],
+				aipRefreshId: adPrefix+'_300x250_2',
+				performProsperLegacyCheck: true,
+				adBlockedFallbackImage: null,
+				refreshTimeout: 0
+			});
+		}
+
+		function ShowAd8()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd8Timer",
+				elementId: adPrefix+'_728x90_m',
+				allowMobile: false,
+				minWindowWidth: 0,
+				crazySdkBannerIds: [adPrefix+'_728x90'],
+				aipRefreshId: adPrefix+'_728x90_m',
+				performProsperLegacyCheck: false,
+				adBlockedFallbackImage: null,
+
+				refreshTimeout: 0
+			});
+		}
+
+		function ShowAd9()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd9Timer",
+				elementId: adPrefix+'_970x250',
+				allowMobile: false,
+				minWindowWidth: 0,
+				crazySdkBannerIds: [adPrefix+'_970x250'],
+				aipRefreshId: adPrefix+'_970x250',
+				performProsperLegacyCheck: true,
+
+								adBlockedFallbackImage: "assets/turnoff.jpg",
+								refreshTimeout: 0
+			});
+		}
+
+		function ShowAd10()
+		{
+			ShowUnitBannerAd({
+				timerId: "showAd10Timer",
+				elementId: adPrefix+'_300x600',
+				allowMobile: false,
+				minWindowWidth: 0,
+				crazySdkBannerIds: [adPrefix+'_300x600'],
+				aipRefreshId: adPrefix+'_300x600',
+				performProsperLegacyCheck: true,
+				refreshTimeout: 0
+			});
+		}
+
+
+
+		// Refresh the 300x600 side ad (callable from Haxe)
+		function RefreshSideAd() {
+			if (!sideAdActive) return;
+			ShowAd10();
+			console.log('RefreshSideAd called');
+		}
+
+		function right(str, chr)
+		{
+ 			 return str.slice(str.length-chr,str.length);
+		}
+		function SetCGInviteLink()
+		{
+			if(typeof gCrazySDK !== 'undefined')
+			{
+				var meta = document.getElementById ("cglink");
+				var aStr = meta.value;
+				aStr = right(aStr, 8);
+				var aCGLink = gCrazySDK.inviteLink({ roomId: aStr });
+				meta.value = aCGLink;
+				meta.select
+				document.execCommand('Copy')
+				console.log("COPIED CG URL");
+			}
+		}
+
+		function ShowAdBreak() {
+			//check if the adslib is loaded correctly or blocked by adblockers etc.
+			if(typeof gCrazySDK !== 'undefined')
+			{
+				Main.DoneInterstitialAd(false);
+				return;
+			}
+
+			if(window.ascAds) {
+				console.log('[ASC] ShowAdBreak: skipping interstitial (not supported by asc)');
+				Main.DoneInterstitialAd(false);
+				return;
+			}
+
+			if(window.optiAds) {
+				console.log('[OPTI] ShowAdBreak: no interstitial support, completing immediately');
+				Main.DoneInterstitialAd(false);
+				return;
+			}
+
+						if(typeof adplayer === 'undefined' ) {
+				Main.DoneInterstitialAd(true);
+				return;
+			}
+			aiptag.cmd.player.push(function() { adplayer.startAdBreak(); });
+		}
+
+
+		document.getElementById("openfl-content").addEventListener("wheel", doScroll);
+		document.getElementById("more").addEventListener("wheel", doScroll);
+		function doScroll(event) {
+  			window.scroll(0, window.scrollY + event.deltaY);
+		};
+
+		setInterval(function () {
+			//console.log("active element:" + document.activeElement);
+			if (document.activeElement.tagName == "IFRAME") {
+        		document.activeElement.blur();
+				document.getElementById('openfl-content').focus();
+				//console.log('refocusing');
+    		}
+		}, 30);
+
+
+		var sid = "bu8ckcv0vfo9gucf6g6j0mctsq";
+		function updateStatus(fromEvent = false)
+		{
+			const req = new XMLHttpRequest();
+			var aStr = "recordsession.php?s="+sid;
+			if(fromEvent == true)  aStr = aStr + "&e=1"
+			req.open("GET", aStr);
+			req.send();
+		}
+		function SendEvent(theEvent, theAction, theParms = '') {
+			if(theParms == '') {
+				gtag(theEvent, theAction);
+			} else {
+				gtag(theEvent, theAction, theParms);
+			}
+			updateStatus(true);
+			console.log("Sending event: " + theEvent + "/" + theAction + "/" + theParms);
+		}
+		//setInterval(function() { updateStatus, 4*60*1000);
+		//setInterval( function() {
+		//	window.scrollTo(0, 0);
+		//}, 2000 );
+		updateStatus(true);
+
+		//setInterval(ClearAds, 2000);
+
+		function EmailSignup() {
+			if(document.getElementById("signup") || document.getElementById("deleteme")) return;
+			const iframe = document.createElement("iframe");
+			iframe.src = "https://bluewizard.com/subscribe-to-bbros/";
+
+//			iframe.style.display = "block";
+			iframe.style.width = "550px";
+			iframe.style.height = ""+window.innerHeight-100+"px";
+			iframe.style.position = "absolute";
+			iframe.style.top = "50px";
+			iframe.style.left = "50%";
+			iframe.style["margin-left"] = "-225px";
+			//iframe.style["margin-right"] = "-275px";
+			iframe.style["max-width"] = "100%";
+			iframe.setAttribute("id", "signup");
+
+			document.body.appendChild(iframe);
+		}
+
+		function HideAllAds(hideSides)
+		{
+			console.log("HideAllAds");
+
+			// Just hide all ad unit divs — don't destroy content so young ads can be re-shown
+			HideAd(adPrefix+'_300x250');
+			HideAd(adPrefix+'_300x250_2');
+			HideAd(adPrefix+'_300x600');
+			HideAd(adPrefix+'_728x90');
+			HideAd(adPrefix+'_728x90_m');
+			HideAd(adPrefix+'_970x250');
+			HideAd(adPrefix+'_160x600');
+			HideAd(adPrefix+'_160x600_2');
+
+			if(typeof $msstart !== 'undefined')
+			{
+				$msstart.hideDisplayAdsAsync().then(response => {});
+				console.log("MS ads hidden");
+			}
+			if(typeof gCrazySDK !== 'undefined') {
+				gCrazySDK.clearAllBanners();
+				console.log("CG ads cleared");
+			}
+			// AdinPlay: destroy every display tag (HideAd above also destroys each one individually)
+			if(typeof aipDisplayTag !== 'undefined') {
+				try {
+					aiptag.cmd.display.push(function() {
+						if (typeof aipDisplayTag !== 'undefined') aipDisplayTag.destroy();
+					});
+					console.log("AIP ads destroyed");
+				} catch (error) {
+					console.error('Error destroying aip tags:', error);
+				}
+			}
+		}
+
+		function HideAd(divName, justClear) {
+			if (justClear === undefined) justClear = false;
+			if (window.optiAds) { HideOptiAd(divName); return; }
+			if (window.ascAds) { HideAscAd(divName, justClear); return; }
+			var aDiv = document.getElementById(divName);
+			if (aDiv != null) {
+				if (!justClear) {
+					aDiv.style.visibility = "hidden";
+					aDiv.style.pointerEvents = "none";
+				}
+				aDiv.innerHTML = "";
+			}
+			// AdinPlay: destroy this specific display tag (tag name == div id), then take the
+			// div out of the page so AdinPlay can't bring it back while it's hidden
+			if (isAipSlot(divName)) {
+				aipDestroySlot(divName);
+				if (!justClear) aipParkSlot(divName);
+			}
+		}
+
+		function ShowAdPosition(divName, theX, theY, xAlign, yAlign, doRefresh, screenW, screenH) {
+			if (window.optiAds) { ShowOptiAd(divName, theX, theY, xAlign, yAlign, doRefresh, screenW, screenH); return; }
+			if (window.ascAds) { ShowAscAd(divName, theX, theY, xAlign, yAlign, doRefresh); return; }
+			aipUnparkSlot(divName);
+			var aDiv = document.getElementById(divName);
+			if (aDiv == null) return;
+			// A destroyed slot is empty, so re-showing it without a refresh would show a blank box
+			if (aipNeedsRefresh[divName]) doRefresh = true;
+
+			aDiv.style.visibility = "visible";
+			aDiv.style.pointerEvents = "";
+
+			if (doRefresh) {
+				switch (divName) {
+					case adPrefix+'_160x600':
+						aipUnparkSlot(divName + "_2");
+						var aDiv2 = document.getElementById(divName + "_2");
+						if (aDiv2) { aDiv2.style.display = "block"; aDiv2.style.visibility = "visible"; }
+						ShowAd1(); break;
+					case adPrefix+'_300x250': ShowAd6(); break;
+					case adPrefix+'_300x250_2': ShowAd2(); break;
+					case adPrefix+'_728x90': ShowAd3(); break;
+					case adPrefix+'_300x600': ShowAd10(); break;
+					case adPrefix+'_728x90_m': ShowAd8(); break;
+					case adPrefix+'_970x250': ShowAd9(); break;
+				}
+			}
+
+			var contentDiv = document.getElementById("openfl-content");
+			var w2 = contentDiv.offsetWidth;
+			var h2 = window.innerHeight;
+			var aScaleX = screenW / w2;
+			var aScaleY = screenH / h2;
+			var adPosX = w2 / 2 + theX / aScaleX;
+			var adPosY = h2 / 2 + theY / aScaleY;
+			var aDivHeight = aDiv.offsetHeight; if (aDivHeight <= 0) aDivHeight = 280;
+			var aDivWidth = aDiv.offsetWidth; if (aDivWidth <= 0) aDivWidth = 336;
+			if (yAlign == "center") adPosY -= aDivHeight / 2;
+			else if (yAlign == "bottom") adPosY -= aDivHeight;
+			if (xAlign == "center") adPosX -= aDivWidth / 2;
+			else if (xAlign == "right") adPosX -= aDivWidth;
+			adPosX += contentDiv.offsetLeft;
+			aDiv.style.left = adPosX + "px";
+			aDiv.style.top = adPosY + "px";
+		}
+
+		function GamePlayStart() {
+			if(typeof gCrazySDK !== 'undefined')
+			{
+				console.log("GamePlayStart");
+				gCrazySDK.gameplayStart();
+			}
+		}
+
+		function GamePlayStop() {
+			if(typeof gCrazySDK !== 'undefined')
+			{
+				console.log("GamePlayStop");
+				gCrazySDK.gameplayStop();
+			}
+		}
+
+		function HappyTime() {
+			if(typeof gCrazySDK !== 'undefined')
+			{
+				console.log("happytime");
+				gCrazySDK.happytime();
+			}
+		}
+
+		// Side ad (300x600) on left when viewport is wider than 16:9 and height >= 600
+		var sideAdActive = false;
+		function updateSideAdLayout() {
+			var w = window.innerWidth;
+			var h = window.innerHeight;
+			var idealGameW = Math.round(h * 16 / 9);
+			var gameW = Math.min(idealGameW, w - 300);
+			var totalUsed = 300 + gameW;
+			var leftMargin = Math.max(0, Math.floor((w - totalUsed) / 2));
+
+			var sideAdDiv = document.getElementById('side-ad-left');
+			var game2Div = document.getElementById('game2');
+			sideAdDiv.style.left = leftMargin + 'px';
+			game2Div.style.marginLeft = (leftMargin + 300) + 'px';
+			game2Div.style.marginRight = leftMargin + 'px';
+			game2Div.style.width = gameW + 'px';
+			game2Div.style.overflow = 'hidden';
+		}
+		function checkSideAd() {
+			return; // Side ad disabled
+			var w = window.innerWidth;
+			var h = window.innerHeight;
+			var aspectRatio = w / h;
+			var sideAdDiv = document.getElementById('side-ad-left');
+			if (!sideAdDiv) return;
+
+			if (aspectRatio > 16/9 && h >= 600) {
+				if (!sideAdActive) {
+					sideAdActive = true;
+					sideAdDiv.style.display = 'flex';
+
+					// Move the 300x600 ad div into the side panel
+					var adDiv;
+					if (window.ascAds) {
+						adDiv = ascGetOrCreateDiv(adPrefix+'_300x600');
+					} else if (window.optiAds) {
+						var slot = optiSlotMap[adPrefix+'_300x600'];
+						if (slot) adDiv = optiGetOrCreateDiv(slot);
+					} else {
+						aipUnparkSlot(adPrefix+'_300x600');
+						adDiv = document.getElementById(adPrefix+'_300x600');
+					}
+					if (adDiv) {
+						adDiv.style.position = 'static';
+						adDiv.style.display = 'block';
+						adDiv.style.visibility = 'visible';
+						adDiv.style.margin = 'auto';
+						sideAdDiv.appendChild(adDiv);
+						ShowAd10();
+					}
+					console.log('Side ad activated: ' + w + 'x' + h + ' aspect=' + aspectRatio.toFixed(2));
+				}
+				updateSideAdLayout();
+			} else {
+				if (sideAdActive) {
+					sideAdActive = false;
+					sideAdDiv.style.display = 'none';
+
+					// Restore game to normal layout
+					var game2Div = document.getElementById('game2');
+					game2Div.style.marginLeft = '';
+					game2Div.style.marginRight = '';
+					game2Div.style.width = '100%';
+					game2Div.style.overflow = '';
+
+					// Move the ad div back to game2 and hide it
+					var adDiv;
+					if (window.ascAds) {
+						adDiv = ascGetDiv(adPrefix+'_300x600');
+					} else if (window.optiAds) {
+						var slot = optiSlotMap[adPrefix+'_300x600'];
+						if (slot) adDiv = optiGetDiv(slot);
+					} else {
+						var wasParked = !!aipParked[adPrefix+'_300x600'];
+						aipUnparkSlot(adPrefix+'_300x600');
+						adDiv = document.getElementById(adPrefix+'_300x600');
+					}
+					if (adDiv) {
+						adDiv.style.position = 'absolute';
+						adDiv.style.visibility = 'hidden';
+						adDiv.style.margin = '';
+						document.getElementById('game2').appendChild(adDiv);
+						if (wasParked) aipParkSlot(adPrefix+'_300x600');
+					}
+					console.log('Side ad deactivated: ' + w + 'x' + h + ' aspect=' + aspectRatio.toFixed(2));
+				}
+			}
+		}
+		window.addEventListener('load', checkSideAd);
+		window.addEventListener('resize', checkSideAd);
+
+		// The 160x600 side rails used to go up here on window 'load'. Removed: the game no
+		// longer uses that unit (ShouldHideSideBanners() is always true, nothing calls
+		// ShowSideBanners()), and on slow hardware 'load' fires seconds into the game --
+		// after whatever HideAllAds() already ran -- so the rails landed on top of whatever
+		// screen was up, e.g. the lobby alongside its own 300x250s.
+
+		var scrollerMessage = "   NEW ROSTERS AND NOW WITH UP TO 6 PLAYERS IN ONLINE GAMES!!!";
+
+		const element = document.getElementById('openfl-content');
+		// Ensure 'element' is not null before adding event listeners if there's any chance it might not exist yet.
+		// Function to keep the element focused
+		function keepFocus() {
+			element.focus();
+		}
+		// Event listeners to restore focus when lost
+		element.addEventListener('blur', keepFocus);
+		element.addEventListener('focusout', keepFocus);
+	</script>
+	<script>
+		function trackSaveLifespan() {
+			try {
+				const NOW = Date.now();
+				const MS_IN_DAY = 1000 * 60 * 60 * 24;
+				
+				let saveCreated = localStorage.getItem('bros_save_created_ts');
+				let sessionCount = parseInt(localStorage.getItem('bros_local_session_count') || '0', 10);
+				
+				sessionCount++;
+				localStorage.setItem('bros_local_session_count', sessionCount);
+
+				let ageBucket = "";
+
+				if (!saveCreated) {
+					// No save found. Mark the creation time.
+					localStorage.setItem('bros_save_created_ts', NOW);
+					ageBucket = "0_Days (New or Wiped)";
+				} else {
+					// Save exists! Calculate age in days.
+					let ageInDays = Math.floor((NOW - parseInt(saveCreated, 10)) / MS_IN_DAY);
+					
+					if (ageInDays === 0) ageBucket = "0_Days (Same Day Return)";
+					else if (ageInDays === 1) ageBucket = "1_Day";
+					else if (ageInDays >= 2 && ageInDays <= 3) ageBucket = "2_to_3_Days";
+					else if (ageInDays >= 4 && ageInDays <= 7) ageBucket = "4_to_7_Days";
+					else ageBucket = "8_Plus_Days";
+				}
+
+				// Fire custom GA4 Event
+				gtag('event', 'Save_Persistence_Check', {
+					'save_age_bucket': ageBucket,
+					'local_session_count': sessionCount
+				});
+			} catch (e) {
+				// Catches strict incognito modes where localStorage is fully blocked
+				gtag('event', 'Save_Persistence_Check', {
+					'save_age_bucket': 'Storage_Blocked'
+				});
+			}
+		}
+		trackSaveLifespan();
+
+		SendEvent('event', 'fromphp');	</script>
+
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4d580fbcabc9d50',t:'MTc5MjQ3Mjg5Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
