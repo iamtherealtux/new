@@ -8,167 +8,298 @@
 
     <link rel="stylesheet" href="TemplateData/style.css">
 
-    <script>
-
-    const originalFetch = window.fetch.bind(window);
-
-    let baldiDataPromise = null;
-
-    async function getBaldiData() {
-        if (baldiDataPromise)
-            return baldiDataPromise;
-
-        baldiDataPromise = (async () => {
-            console.log("[Baldi] Downloading data part 1...");
-
-            const r1 = await originalFetch("unity/baldi.data.unityweb.part1");
-
-            if (!r1.ok)
-                throw new Error(
-                    "part1 failed: HTTP " + r1.status
-                );
-
-            const b1 = await r1.arrayBuffer();
-
-            console.log(
-                "[Baldi] Part 1:",
-                (b1.byteLength / 1024 / 1024).toFixed(2),
-                "MB"
-            );
-
-            console.log("[Baldi] Downloading data part 2...");
-
-            const r2 = await originalFetch("unity/baldi.data.unityweb.part2");
-
-            if (!r2.ok)
-                throw new Error(
-                    "part2 failed: HTTP " + r2.status
-                );
-
-            const b2 = await r2.arrayBuffer();
-
-            console.log(
-                "[Baldi] Part 2:",
-                (b2.byteLength / 1024 / 1024).toFixed(2),
-                "MB"
-            );
-
-            const merged = new Uint8Array(
-                b1.byteLength + b2.byteLength
-            );
-
-            merged.set(new Uint8Array(b1), 0);
-            merged.set(new Uint8Array(b2), b1.byteLength);
-
-            console.log(
-                "[Baldi] Data merged:",
-                (merged.byteLength / 1024 / 1024).toFixed(2),
-                "MB"
-            );
-
-            return merged.buffer;
-        })();
-
-        return baldiDataPromise;
-    }
-
-
-    window.fetch = async function(input, init) {
-        let url;
-
-        if (typeof input === "string")
-            url = input;
-        else
-            url = input.url;
-
-        if (
-            url &&
-            url.split("?")[0].endsWith(
-                "/unity/baldi.data.unityweb"
-            )
-        ) {
-            console.log(
-                "[Baldi] Intercepted Unity data request"
-            );
-
-            const buffer = await getBaldiData();
-
-            return new Response(buffer, {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/octet-stream"
-                }
-            });
+    <style>
+        html, body {
+            margin: 0;
+            background: #000;
+            overflow: hidden;
         }
 
-        return originalFetch(input, init);
-    };
-
-
-    getBaldiData().catch(error => {
-        console.error(
-            "[Baldi] Failed to prepare game data:",
-            error
-        );
-    });
-    </script>
-
-    <script src="TemplateData/UnityProgress.js"></script>
-    <script src="baldi.js"></script>
+        #loading {
+            color: white;
+            font-family: monospace;
+            padding: 20px;
+        }
+    </style>
 </head>
 
-<body style="margin:0; background:#000; overflow:hidden;">
+<body>
 
-    <div class="webgl-content">
+<div id="loading">Loading Baldi data...</div>
 
-        <div
-            id="unityContainer"
-            style="
-                width:960px;
-                height:600px;
-                padding:0;
-                margin:0;
-                border:0;
-                position:relative;
-                background:rgb(35,31,32);
-            "
-        >
+<div class="webgl-content">
+    <div id="unityContainer"
+         style="width:960px;height:600px;position:relative;background:#231f20">
 
-            <div
-                id="gameContainer"
-                style="
-                    width:800px;
-                    height:560px;
-                    margin:0;
-                    padding:0;
-                    border:0;
-                    position:relative;
-                    background:#000;
-                "
-            ></div>
-
+        <div id="gameContainer"
+             style="width:800px;height:560px;position:relative;background:#000">
         </div>
 
     </div>
+</div>
 
-    <script>
-        var gameInstance = UnityLoader.instantiate(
+<script>
+(async function () {
+
+    const loading = document.getElementById("loading");
+
+    const DATA_NAME = "baldi.data.unityweb";
+
+    const realFetch = window.fetch.bind(window);
+    const RealXHR = window.XMLHttpRequest;
+
+
+    function isBaldiData(url) {
+        if (!url)
+            return false;
+
+        try {
+            url = decodeURIComponent(String(url));
+        } catch (_) {
+            url = String(url);
+        }
+
+        url = url.split("?")[0];
+
+        return url.endsWith(DATA_NAME);
+    }
+
+    async function downloadPart(number) {
+
+        loading.textContent =
+            "Downloading Baldi data part " + number + "...";
+
+        const response = await realFetch(
+            "unity/baldi.data.unityweb.part" + number,
+            { cache: "no-store" }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Part " + number +
+                " failed: HTTP " + response.status
+            );
+        }
+
+        return await response.arrayBuffer();
+    }
+
+
+    console.log("[Baldi] Downloading part 1...");
+    const part1 = await downloadPart(1);
+
+    console.log(
+        "[Baldi] Part 1:",
+        (part1.byteLength / 1048576).toFixed(2),
+        "MB"
+    );
+
+
+    console.log("[Baldi] Downloading part 2...");
+    const part2 = await downloadPart(2);
+
+    console.log(
+        "[Baldi] Part 2:",
+        (part2.byteLength / 1048576).toFixed(2),
+        "MB"
+    );
+
+
+    loading.textContent = "Merging Baldi data...";
+
+    const merged = new Uint8Array(
+        part1.byteLength + part2.byteLength
+    );
+
+    merged.set(new Uint8Array(part1), 0);
+    merged.set(new Uint8Array(part2), part1.byteLength);
+
+    const mergedBuffer = merged.buffer;
+
+    console.log(
+        "[Baldi] Data ready:",
+        (mergedBuffer.byteLength / 1048576).toFixed(2),
+        "MB"
+    );
+
+    window.fetch = function(input, init) {
+
+        const url =
+            typeof input === "string"
+                ? input
+                : input && input.url;
+
+        if (isBaldiData(url)) {
+
+            console.log(
+                "[Baldi] FETCH intercepted:",
+                url
+            );
+
+            return Promise.resolve(
+                new Response(mergedBuffer.slice(0), {
+                    status: 200,
+                    statusText: "OK",
+                    headers: {
+                        "Content-Type":
+                            "application/octet-stream"
+                    }
+                })
+            );
+        }
+
+        return realFetch(input, init);
+    };
+
+
+    window.XMLHttpRequest = function () {
+
+        const xhr = new RealXHR();
+
+        const realOpen = xhr.open;
+        const realSend = xhr.send;
+
+        let requestURL = null;
+
+
+        xhr.open = function(method, url) {
+
+            requestURL = String(url);
+
+            if (isBaldiData(requestURL)) {
+                console.log(
+                    "[Baldi] XHR prepared:",
+                    requestURL
+                );
+
+                return;
+            }
+
+            return realOpen.apply(xhr, arguments);
+        };
+
+
+        xhr.send = function() {
+
+            if (!isBaldiData(requestURL)) {
+                return realSend.apply(xhr, arguments);
+            }
+
+            console.log(
+                "[Baldi] XHR intercepted:",
+                requestURL
+            );
+
+            Object.defineProperties(xhr, {
+
+                readyState: {
+                    configurable: true,
+                    value: 4
+                },
+
+                status: {
+                    configurable: true,
+                    value: 200
+                },
+
+                statusText: {
+                    configurable: true,
+                    value: "OK"
+                },
+
+                response: {
+                    configurable: true,
+                    value: mergedBuffer.slice(0)
+                },
+
+                responseType: {
+                    configurable: true,
+                    value: "arraybuffer"
+                }
+            });
+
+
+            setTimeout(function () {
+
+                if (xhr.onreadystatechange)
+                    xhr.onreadystatechange();
+
+                if (xhr.onload)
+                    xhr.onload({
+                        type: "load",
+                        target: xhr
+                    });
+
+            }, 0);
+        };
+
+
+        return xhr;
+    };
+
+
+    loading.textContent = "Starting Unity...";
+
+    const progressScript =
+        document.createElement("script");
+
+    progressScript.src =
+        "TemplateData/UnityProgress.js";
+
+    await new Promise((resolve, reject) => {
+        progressScript.onload = resolve;
+        progressScript.onerror = reject;
+        document.head.appendChild(progressScript);
+    });
+
+
+    const unityScript =
+        document.createElement("script");
+
+    unityScript.src = "baldi.js";
+
+    await new Promise((resolve, reject) => {
+        unityScript.onload = resolve;
+        unityScript.onerror = reject;
+        document.head.appendChild(unityScript);
+    });
+
+
+    console.log("[Baldi] Unity loader loaded");
+
+    loading.style.display = "none";
+
+
+    window.gameInstance =
+        UnityLoader.instantiate(
             "gameContainer",
             "baldi.json",
             {
                 onProgress: UnityProgress,
 
                 Module: {
-                    onRuntimeInitialized: function () {
-                        UnityProgress(
-                            gameInstance,
-                            "complete"
-                        );
-                    }
+                    onRuntimeInitialized:
+                        function () {
+
+                            UnityProgress(
+                                window.gameInstance,
+                                "complete"
+                            );
+
+                        }
                 }
             }
         );
-    </script>
+
+})().catch(function(error) {
+
+    console.error("[Baldi] Startup failed:", error);
+
+    document.getElementById("loading").textContent =
+        "Failed to start Baldi: " + error;
+
+});
+</script>
 
 </body>
 </html>
