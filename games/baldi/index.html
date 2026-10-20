@@ -11,7 +11,91 @@
     <link rel="stylesheet" href="TemplateData/style.css">
 
     <script>
+        window.fileMergerConfig = {
+            files: [
+                {
+                    name: "baldi.data.unityweb",
+                    parts: 2
+                },
+                {
+                    name: "baldi.wasm.code.unityweb",
+                    parts: 1
+                },
+                {
+                    name: "baldi.wasm.framework.unityweb",
+                    parts: 1
+                }
+            ],
+            basePath: "unity/",
+            debug: true
+        };
+    </script>
+    <script src="merger.js"></script>
+
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="baldi.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .webgl-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #unityContainer {
+            width: 960px;
+            height: 600px;
+            position: relative;
+            background: #231f20;
+        }
+
+        #gameContainer {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #000;
+        }
+
+        #loadingMessage {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 10000;
+
+            color: white;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="loadingMessage">
+    Downloading Baldi...
+</div>
+
+<div class="webgl-content">
+    <div id="unityContainer">
+        <div id="gameContainer"></div>
+    </div>
+</div>
+
+<script>
 (async function () {
+
     const loadingMessage =
         document.getElementById("loadingMessage");
 
@@ -22,11 +106,8 @@
     ];
 
     console.log("[Baldi] Waiting for Unity files...");
-
-    if (loadingMessage) {
-        loadingMessage.textContent = "Downloading Baldi...";
-    }
     while (true) {
+
         const files = window.mergedFiles;
 
         if (
@@ -44,7 +125,9 @@
     console.log("[Baldi] All Unity files are ready.");
 
     for (const name of requiredFiles) {
-        const buffer = window.mergedFiles[name];
+
+        const buffer =
+            window.mergedFiles[name];
 
         console.log(
             "[Baldi]",
@@ -56,11 +139,11 @@
 
     console.log("[Baldi] Starting Unity...");
 
-    if (loadingMessage) {
-        loadingMessage.textContent = "Starting Baldi...";
-    }
+    loadingMessage.textContent =
+        "Starting Baldi...";
 
     try {
+
         window.gameInstance =
             UnityLoader.instantiate(
                 "gameContainer",
@@ -89,16 +172,16 @@
             );
 
     } catch (error) {
+
         console.error(
             "[Baldi] Unity startup failed:",
             error
         );
 
-        if (loadingMessage) {
-            loadingMessage.textContent =
-                "Baldi failed to start — check console.";
-        }
+        loadingMessage.textContent =
+            "Baldi failed to start — check console.";
     }
+
 })();
 </script>
 
