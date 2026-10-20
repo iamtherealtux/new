@@ -38,6 +38,32 @@
     </style>
 
     <script src="TemplateData/UnityProgress.js"></script>
+
+    <script>
+        window.fileMergerConfig = {
+            files: [
+                {
+                    name: "baldi.data.unityweb",
+                    parts: 2
+                },
+                {
+                    name: "baldi.wasm.code.unityweb",
+                    parts: 1
+                },
+                {
+                    name: "baldi.wasm.framework.unityweb",
+                    parts: 1
+                }
+            ],
+
+            basePath: "unity/",
+            debug: true
+        };
+    </script>
+
+    <!-- Must run BEFORE baldi.js / UnityLoader -->
+    <script src="merger.js"></script>
+
     <script src="baldi.js"></script>
 </head>
 
