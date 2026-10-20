@@ -23,7 +23,9 @@
 
     console.log("[Baldi] Waiting for Unity files...");
 
-    loadingMessage.textContent = "Downloading Baldi...";
+    if (loadingMessage) {
+        loadingMessage.textContent = "Downloading Baldi...";
+    }
     while (true) {
         const files = window.mergedFiles;
 
@@ -54,7 +56,9 @@
 
     console.log("[Baldi] Starting Unity...");
 
-    loadingMessage.textContent = "Starting Baldi...";
+    if (loadingMessage) {
+        loadingMessage.textContent = "Starting Baldi...";
+    }
 
     try {
         window.gameInstance =
@@ -90,8 +94,10 @@
             error
         );
 
-        loadingMessage.textContent =
-            "Baldi failed to start — check console.";
+        if (loadingMessage) {
+            loadingMessage.textContent =
+                "Baldi failed to start — check console.";
+        }
     }
 })();
 </script>
