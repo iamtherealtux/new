@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CrazyCattle3D</title>
+
+    <!-- Replace COMMIT with the assetsasd commit containing the game -->
+    <base href="https://cdn.jsdelivr.net/gh/wgfwpnew/assetsasd@709aed34d9af52fe5d5a92342969e86053da8713/crazycattle3d/">
+
+    <style>
+        html, body, #canvas {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        html, body {
+            overflow: hidden;
+            background: #000;
+        }
+
+        #canvas {
+            display: block;
+            position: absolute;
+            inset: 0;
+        }
+
+        #canvas:focus {
+            outline: none;
+        }
+
+        #status {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            color: white;
+            font-family: sans-serif;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" tabindex="0">
+        Your browser does not support canvas.
+    </canvas>
+
+    <div id="status">Loading CrazyCattle3D...</div>
+
+    <script src="CrazyCattle3D.js"></script>
+
+    <script>
+        const GODOT_CONFIG = {
+            args: [],
+            canvasResizePolicy: 2,
+            ensureCrossOriginIsolationHeaders: false,
+            executable: "CrazyCattle3D",
+
+            fileSizes: {
+                "CrazyCattle3D.pck": 28642672,
+                "CrazyCattle3D.wasm": 43444261
+            },
+
+            focusCanvas: true,
+            experimentalVK: false,
+            gdextensionLibs: []
+        };
+
+        const engine = new Engine(GODOT_CONFIG);
+
+        engine.startGame({
+            onProgress(current, total) {
+                const status = document.getElementById("status");
+
+                if (current > 0 && total > 0) {
+                    status.textContent =
+                        `Loading CrazyCattle3D... ${Math.round(current / total * 100)}%`;
+                }
+            }
+        }).then(() => {
+            document.getElementById("status").remove();
+        }).catch(err => {
+            console.error(err);
+            document.getElementById("status").textContent =
+                "Failed to start CrazyCattle3D: " + err;
+        });
+    </script>
+</body>
+</html>
