@@ -55,21 +55,27 @@
     <script src="CrazyCattle3D.js"></script>
 
     <script>
-        const GODOT_CONFIG = {
-            args: [],
-            canvasResizePolicy: 2,
-            ensureCrossOriginIsolationHeaders: false,
-            executable: "CrazyCattle3D",
+        const RAW =
+    "https://raw.githubusercontent.com/wgfwpnew/assetsasd/709aed34d9af52fe5d5a92342969e86053da8713/crazycattle3d/";
 
-            fileSizes: {
-                "CrazyCattle3D.pck": 28642672,
-                "CrazyCattle3D.wasm": 43444261
-            },
+const GODOT_CONFIG = {
+    args: [],
+    canvasResizePolicy: 2,
+    ensureCrossOriginIsolationHeaders: false,
 
-            focusCanvas: true,
-            experimentalVK: false,
-            gdextensionLibs: []
-        };
+    executable: RAW + "CrazyCattle3D",
+    mainPack: RAW + "CrazyCattle3D.pck",
+
+    experimentalVK: false,
+
+    fileSizes: {
+        [RAW + "CrazyCattle3D.pck"]: 28642672,
+        [RAW + "CrazyCattle3D.wasm"]: 43444261
+    },
+
+    focusCanvas: true,
+    gdextensionLibs: []
+};
 
         const engine = new Engine(GODOT_CONFIG);
 
