@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <base href="https://cdn.jsdelivr.net/gh/iamtherealtux/web-dashers.github.io@5b528910a40ecb5f50ce5a4d73edfcbf25c348b0/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Web Dashers</title>
+    <base href="cdn.jsdelivr.net/gh/wgfwpnew/web-dashers/@84b123b20bca82066350fefe8b49849a24da701c/"
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="stylesheet" href="assets/style.css">
     <meta name="description" content="Web Dashers is a fan-made browser mod of the Geometry Dash Web Demo. It features the main levels, a built-in level creator, and a level search to play online levels. The project is actively in development, with more features and updates planned.">
@@ -36,13 +36,12 @@
     <script src="assets/scripts/utils/api-config.js"></script>
     <script src="assets/scripts/api/account-api.js"></script>
     <!-- workerssdsss nwo-->
-    <script>// many pepole have complained about this game not working, so if ur here trying to look through the code please make a pull req in the upstream repo instead ty
+    <script>
         (function () {
             var GD_PROXY_HOSTS = [
                 "https://gd-proxy.webdashers.workers.dev",
-                "https://webdashers.webdashersdevelopement.workers.dev",
-                "https://fallbackgdproxy.webdashers.workers.dev",
-                "https://fallback2.webdashers.workers.dev"
+                "https://cold-grass-d871.gn-math-business.workers.dev",
+                "https://webd.ktrio839.workers.dev",
             ];
             window._gdProxyUrl = GD_PROXY_HOSTS[0];
             window._gdProxyHosts = GD_PROXY_HOSTS;
@@ -75,7 +74,7 @@
                     var attemptInput = isRequestObj ? new Request(attemptUrl, input) : attemptUrl;
 
                     return nativeFetch(attemptInput, init).then(function (res) {
-                        if ((res.status === 429 || res.status >= 500) && attempts < GD_PROXY_HOSTS.length - 1) {
+                        if ((res.status === 429 || res.status === 503) && attempts < GD_PROXY_HOSTS.length - 1) {
                             attempts++;
                             var nextIndex = (hostIndex + 1) % GD_PROXY_HOSTS.length;
                             return tryHost(nextIndex);
