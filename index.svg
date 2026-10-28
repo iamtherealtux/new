@@ -3,24 +3,28 @@
 <xhtml:iframe id="frame" style="width:100%;height:100%;border:0;display:block;background:white;"/>
 </foreignObject>
 
-<script><![CDATA[
+<script>
+window.alert("please give this a star on github and if you edit this site, fork the repo or publish the changes w/ gpl 3.0 to maintain FOSS software
+<![CDATA[
 const _0xf=document["getElementById"]("frame");let _0xc=null,_0xu=null,_0xl=!1,_0xrequestId=0;
+
+const GH_USER = "iamtherealtux"
+const REPO = "new"
+// ^^^ 10/28 added these to shorten svg file, will remove obfuscation later to maintain FOSS :eyes:
 
 async function _0xsha(){
 try{
-const _0xr=await fetch("https://api.github.com/repos/iamtherealtux/new/branches/main?_"+Date.now(),{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
+const _0xr=await fetch("https://api.github.com/repos/GH_USER/REPO/branches/main?_"+Date.now(),{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
 if(!_0xr.ok)throw new Error("GitHub branch lookup failed: HTTP "+_0xr.status);
 const _0xj=await _0xr.json();
 if(!_0xj.commit||!_0xj.commit.sha)throw new Error("GitHub did not return a commit SHA");
 return _0xj.commit.sha
 }catch(_0xerr){
-console.warn("GitHub SHA lookup failed; using jsDelivr @main:",_0xerr);
 return "main"
 }
 }
 
 function _0xe(_0xx){
-console["error"](_0xx);
 const _0xs=String(_0xx)["replace"](/&/g,"&amp;")["replace"](/</g,"&lt;")["replace"](/>/g,"&gt;");
 _0xf["srcdoc"]=`<!doctype html><html><head><meta charset="utf-8"><style>body{background:#111;color:white;font-family:system-ui,sans-serif;padding:30px}pre{color:#ff7777;white-space:pre-wrap}</style></head><body><h1>Failed to load page</h1><pre>${_0xs}</pre></body></html>`
 }
@@ -53,17 +57,16 @@ const _0xid=++_0xrequestId;
 try{
 if(!_0xc)_0xc=await _0xsha();
 
-const _0xroot="https://cdn.jsdelivr.net/gh/iamtherealtux/new@"+_0xc+"/",
+const _0xroot="https://cdn.jsdelivr.net/gh/GH_USER/REPO@"+_0xc+"/",
 _0xurl=new URL(_0xp,_0xu||_0xroot);
 
-if(_0xurl.hostname==="cdn.jsdelivr.net"&&_0xurl.pathname.startsWith("/gh/iamtherealtux/new@")){
-const _0xm=_0xurl.pathname.match(/^\/gh\/iamtherealtux\/new@[^/]+\/(.*)$/);
+if(_0xurl.hostname==="cdn.jsdelivr.net"&&_0xurl.pathname.startsWith("/gh/GH_USER/REPO@")){
+const _0xm=_0xurl.pathname.match(/^\/gh\/GH_USER\/REPO@[^/]+\/(.*)$/);
 
 if(_0xm)
 _0xurl.href=_0xroot+_0xm[1]+_0xurl.search+_0xurl.hash
 }
 
-console["log"]("Commit:",_0xc,"Loading:",_0xurl["href"]);
 
 const _0xr=await fetch(_0xurl["href"],{cache:"no-store"});
 
@@ -123,7 +126,6 @@ _0xload(_0xn["href"])
 },!0)
 
 }catch(_0xx){
-console["error"](_0xx)
 }
 
 _0xl=!1
@@ -132,7 +134,7 @@ _0xl=!1
 (async()=>{
 try{
 _0xc=await _0xsha();
-_0xu=new URL("https://cdn.jsdelivr.net/gh/iamtherealtux/new@"+_0xc+"/index.html");
+_0xu=new URL("https://cdn.jsdelivr.net/gh/GH_USER/REPO@"+_0xc+"/index.html");
 await _0xload(_0xu["href"])
 }catch(_0xx){
 _0xe(_0xx)
