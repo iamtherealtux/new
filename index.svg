@@ -1,143 +1,108 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" width="100%" height="100%" style="background:#000">
-<foreignObject x="0" y="0" width="100%" height="100%">
-<xhtml:iframe id="frame" style="width:100%;height:100%;border:0;display:block;background:white;"/>
-</foreignObject>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" width="100%" height="100%" viewBox="0 0 1280 720" preserveAspectRatio="none" style="background:#000">
+  <foreignObject x="0" y="0" width="100%" height="100%">
+    <xhtml:iframe id="frame" style="width:100%;height:100%;border:0;display:block;background:white" srcdoc="&lt;!doctype html&gt;&#10;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;base href=&quot;https://cdn.jsdelivr.net/gh/iamtherealtux/new@886839a3222ee6cdf6f67baf76eddda73a2f2a93/&quot;&gt;&#10;    &lt;meta charset=&quot;UTF-8&quot;&gt;&#10;    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;&#10;    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;&#10;    &lt;title&gt;wgfwp&lt;/title&gt;&#10;&lt;/head&gt;&#10;&lt;body&gt;&#10;    &lt;h1&gt;Wgfwp (Again)&lt;/h1&gt;&#10;    &lt;p&gt;Nothing much here&lt;/p&gt;&#10;    &lt;a href=&quot;games.html&quot;&gt;Games&lt;/a&gt;&#10;    &lt;script&gt;&#10;       if (!localStorage.getItem('alertread')) {&#10;          alert('please star this on github!!! also if your making changes to the site please fork the repo and publish your changes to maintain FOSS software');&#10;          localStorage.setItem('alertread', 'true');&#10;       }&#10;    &lt;/script&gt;&#10;&#10;&#10;&lt;/body&gt;&lt;/html&gt;"></xhtml:iframe>
+  </foreignObject>
+  <script><![CDATA[
+    (() => {
+      'use strict';
+      const GH_USER = 'iamtherealtux';
+      const REPO = 'new';
+      const frame = document.getElementById('frame');
+      let revision = 'main';
+      let currentURL = null;
+      let requestId = 0;
 
-<script>
+      const repoPrefix = `/gh/${GH_USER}/${REPO}@`;
+      const cdnRoot = () => `https://cdn.jsdelivr.net/gh/${GH_USER}/${REPO}@${revision}/`;
 
-<![CDATA[
-const _0xf=document["getElementById"]("frame");let _0xc=null,_0xu=null,_0xl=!1,_0xrequestId=0;
+      async function resolveRevision() {
+        try {
+          const response = await fetch(`https://api.github.com/repos/${GH_USER}/${REPO}/branches/main?_=${Date.now()}`, {
+            cache: 'no-store', headers: { Accept: 'application/vnd.github+json' }
+          });
+          if (!response.ok) throw new Error(`GitHub API HTTP ${response.status}`);
+          const data = await response.json();
+          return data.commit?.sha || 'main';
+        } catch (error) {
+          console.warn('Using main branch instead of SHA:', error);
+          return 'main';
+        }
+      }
 
-const GH_USER = "iamtherealtux"
-const REPO = "new"
+      function showError(error) {
+        const message = String(error);
+        frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8"><style>body{background:#111;color:#fff;font:16px system-ui;padding:30px}pre{color:#ff7777;white-space:pre-wrap;overflow-wrap:anywhere}</style></head><body><h1>Failed to load page</h1><pre></pre></body></html>`;
+        frame.addEventListener('load', function once() {
+          frame.removeEventListener('load', once);
+          const pre = frame.contentDocument?.querySelector('pre');
+          if (pre) pre.textContent = message;
+        });
+      }
 
-async function _0xsha(){
-try{
-const _0xr=await fetch("https://api.github.com/repos/${GH_USER}/${REPO}/branches/main?_"+Date.now(),{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
-if(!_0xr.ok)throw new Error("GitHub branch lookup failed: HTTP "+_0xr.status);
-const _0xj=await _0xr.json();
-if(!_0xj.commit||!_0xj.commit.sha)throw new Error("GitHub did not return a commit SHA");
-return _0xj.commit.sha
-}catch(_0xerr){
-return "main"
-}
-}
+      function normalizeRepoURL(url) {
+        if (url.origin !== 'https://cdn.jsdelivr.net' || !url.pathname.startsWith(repoPrefix)) return url;
+        const remaining = url.pathname.slice(repoPrefix.length);
+        const slash = remaining.indexOf('/');
+        if (slash < 0) return url;
+        return new URL(remaining.slice(slash + 1) + url.search + url.hash, cdnRoot());
+      }
 
-function _0xe(_0xx){
-const _0xs=String(_0xx)["replace"](/&/g,"&amp;")["replace"](/</g,"&lt;")["replace"](/>/g,"&gt;");
-_0xf["srcdoc"]=`<!doctype html><html><head><meta charset="utf-8"><style>body{background:#111;color:white;font-family:system-ui,sans-serif;padding:30px}pre{color:#ff7777;white-space:pre-wrap}</style></head><body><h1>Failed to load page</h1><pre>${_0xs}</pre></body></html>`
-}
+      function prepareHTML(html, sourceURL) {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        let base = doc.querySelector('base[href]');
+        if (base) {
+          try { base.href = new URL(base.getAttribute('href'), sourceURL).href; }
+          catch { base.href = new URL('./', sourceURL).href; }
+        } else {
+          base = doc.createElement('base');
+          base.href = new URL('./', sourceURL).href;
+          doc.head.prepend(base);
+        }
+        return '<!doctype html>\n' + doc.documentElement.outerHTML;
+      }
 
-function _0xb(_0xh,_0xbase){
-const _0xd=new DOMParser()["parseFromString"](_0xh,"text/html");
+      async function loadPage(path) {
+        const id = ++requestId;
+        try {
+          const url = normalizeRepoURL(new URL(path, currentURL || cdnRoot()));
+          if (url.protocol !== 'https:' || url.hostname !== 'cdn.jsdelivr.net' || !url.pathname.startsWith(repoPrefix)) {
+            throw new Error(`Navigation outside this repository is not supported: ${url.href}`);
+          }
+          const response = await fetch(url.href, { cache: 'no-store' });
+          if (!response.ok) throw new Error(`HTTP ${response.status} while loading ${url.href}`);
+          const html = await response.text();
+          if (id !== requestId) return;
+          currentURL = url;
+          frame.srcdoc = prepareHTML(html, url.href);
+        } catch (error) {
+          if (id === requestId) showError(error);
+        }
+      }
 
-if(!_0xd["head"]){
-const _0xhead=_0xd["createElement"]("head");
-_0xd["documentElement"]["prepend"](_0xhead)
-}
+      frame.addEventListener('load', () => {
+        const doc = frame.contentDocument;
+        if (!doc) return;
+        doc.addEventListener('click', event => {
+          const target = event.target;
+          const anchor = target?.closest?.('a[href]');
+          if (!anchor || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+          if (anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return;
+          const href = anchor.getAttribute('href');
+          if (!href || /^(#|javascript:|mailto:|tel:)/i.test(href)) return;
+          let url;
+          try { url = new URL(href, doc.baseURI || currentURL); }
+          catch { return; }
+          if (url.origin !== 'https://cdn.jsdelivr.net' || !url.pathname.startsWith(repoPrefix)) return;
+          if (!/\.(?:html?|xhtml)$/i.test(url.pathname) && !url.pathname.endsWith('/')) return;
+          event.preventDefault();
+          loadPage(url.href);
+        }, true);
+      });
 
-let _0xbaseel=_0xd["querySelector"]("base[href]");
-
-if(_0xbaseel){
-try{
-_0xbaseel["href"]=new URL(_0xbaseel["getAttribute"]("href"),_0xbase)["href"]
-}catch(_0xq){}
-}else{
-_0xbaseel=_0xd["createElement"]("base");
-_0xbaseel["href"]=new URL("./",_0xbase)["href"];
-_0xd["head"]["prepend"](_0xbaseel)
-}
-
-return "<!doctype html>\n"+_0xd["documentElement"]["outerHTML"]
-}
-
-async function _0xload(_0xp){
-const _0xid=++_0xrequestId;
-try{
-if(!_0xc)_0xc=await _0xsha();
-
-const _0xroot="https://cdn.jsdelivr.net/gh/GH_USER/REPO@"+_0xc+"/",
-_0xurl=new URL(_0xp,_0xu||_0xroot);
-
-if(_0xurl.hostname==="cdn.jsdelivr.net"&&_0xurl.pathname.startsWith("/gh/${GH_USER}/${REPO}@")){
-const _0xm=_0xurl.pathname.match(/^\/gh\/${GH_USER}\/${REPO}@[^/]+\/(.*)$/);
-
-if(_0xm)
-_0xurl.href=_0xroot+_0xm[1]+_0xurl.search+_0xurl.hash
-}
-
-
-const _0xr=await fetch(_0xurl["href"],{cache:"no-store"});
-
-if(!_0xr.ok)
-throw new Error("HTTP "+_0xr.status+" while loading "+_0xurl["href"]);
-
-const _0xh=await _0xr["text"]();
-
-if(_0xid!==_0xrequestId)return;
-_0xu=_0xurl;
-_0xf["srcdoc"]=_0xb(_0xh,_0xurl)
-
-}catch(_0xx){
-if(_0xid===_0xrequestId)_0xe(_0xx)
-}
-}
-
-_0xf["addEventListener"]("load",function(){
-if(_0xl)return;
-
-_0xl=!0;
-
-try{
-const _0xd=_0xf["contentDocument"];
-
-if(!_0xd){
-_0xl=!1;
-return
-}
-
-_0xd["addEventListener"]("click",function(_0xev){
-const _0xa=_0xev["target"]["closest"]&&_0xev["target"]["closest"]("a");
-
-if(!_0xa)return;
-
-const _0xh=_0xa["getAttribute"]("href");
-
-if(!_0xh||/^(#|javascript:|mailto:|tel:)/i.test(_0xh)||_0xa["target"]==="_blank")
-return;
-
-let _0xn;
-
-try{
-_0xn=new URL(_0xh,_0xd.baseURI||_0xu)
-}catch(_0xq){
-return
-}
-
-const _0xp=_0xn["pathname"]["toLowerCase"]();
-
-if(_0xn.protocol==="https:"&&_0xn.hostname==="cdn.jsdelivr.net"&&_0xn.pathname.startsWith("/gh/")&&
-(_0xp["endsWith"](".html")||_0xp["endsWith"](".htm")||_0xp["endsWith"]("/"))){
-_0xev["preventDefault"]();
-_0xload(_0xn["href"])
-}
-
-},!0)
-
-}catch(_0xx){
-}
-
-_0xl=!1
-});
-
-(async()=>{
-try{
-_0xc=await _0xsha();
-_0xu=new URL("https://cdn.jsdelivr.net/gh/${GH_USER}/${REPO}@"+_0xc+"/index.html");
-await _0xload(_0xu["href"])
-}catch(_0xx){
-_0xe(_0xx)
-}
-})();
-]]></script>
+      (async () => {
+        revision = await resolveRevision();
+        await loadPage('index.html');
+      })();
+    })();
+  ]]></script>
 </svg>
