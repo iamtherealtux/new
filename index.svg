@@ -8,7 +8,7 @@ const _0xf=document["getElementById"]("frame");let _0xc=null,_0xu=null,_0xl=!1,_
 
 async function _0xsha(){
 try{
-const _0xr=await fetch("https://api.github.com/repos/wgfwpnew/wgfwpnew/branches/main?_"+Date.now(),{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
+const _0xr=await fetch("https://api.github.com/repos/iamtherealtux/new/branches/main?_"+Date.now(),{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
 if(!_0xr.ok)throw new Error("GitHub branch lookup failed: HTTP "+_0xr.status);
 const _0xj=await _0xr.json();
 if(!_0xj.commit||!_0xj.commit.sha)throw new Error("GitHub did not return a commit SHA");
@@ -53,11 +53,11 @@ const _0xid=++_0xrequestId;
 try{
 if(!_0xc)_0xc=await _0xsha();
 
-const _0xroot="https://cdn.jsdelivr.net/gh/wgfwpnew/wgfwpnew@"+_0xc+"/",
+const _0xroot="https://cdn.jsdelivr.net/gh/iamtherealtux/new@"+_0xc+"/",
 _0xurl=new URL(_0xp,_0xu||_0xroot);
 
-if(_0xurl.hostname==="cdn.jsdelivr.net"&&_0xurl.pathname.startsWith("/gh/wgfwpnew/wgfwpnew@")){
-const _0xm=_0xurl.pathname.match(/^\/gh\/wgfwpnew\/wgfwp@[^/]+\/(.*)$/);
+if(_0xurl.hostname==="cdn.jsdelivr.net"&&_0xurl.pathname.startsWith("/gh/iamtherealtux/new@")){
+const _0xm=_0xurl.pathname.match(/^\/gh\/iamtherealtux\/new@[^/]+\/(.*)$/);
 
 if(_0xm)
 _0xurl.href=_0xroot+_0xm[1]+_0xurl.search+_0xurl.hash
@@ -132,7 +132,7 @@ _0xl=!1
 (async()=>{
 try{
 _0xc=await _0xsha();
-_0xu=new URL("https://cdn.jsdelivr.net/gh/wgfwpnew/wgfwpnew@"+_0xc+"/index.html");
+_0xu=new URL("https://cdn.jsdelivr.net/gh/iamtherealtux/new@"+_0xc+"/index.html");
 await _0xload(_0xu["href"])
 }catch(_0xx){
 _0xe(_0xx)
