@@ -11,7 +11,9 @@
     <p>Nothing much here</p>
     <a href="games.html">Games</a>
     <script>
-        window.alert("Please star this repo on github!!! Also, if youre forking it please publish it w/ gpl 2.0/3.0 to maintain FOSS software")
-    </script>
+       if (!localStorage.getItem('alertread')) {
+          alert('please star this on github!!! also if your making changes to the site please fork the repo and publish your changes to maintain FOSS software');
+          localStorage.setItem('alertread', 'true');
+       }
 </body>
 </html>
