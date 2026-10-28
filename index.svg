@@ -10,7 +10,6 @@ const _0xf=document["getElementById"]("frame");let _0xc=null,_0xu=null,_0xl=!1,_
 
 const GH_USER = "iamtherealtux"
 const REPO = "new"
-// ^^^ 10/28 added these to shorten svg file, will remove obfuscation later to maintain FOSS :eyes:
 
 async function _0xsha(){
 try{
