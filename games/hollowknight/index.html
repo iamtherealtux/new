@@ -74,6 +74,9 @@
         const BASE =
             "https://cdn.jsdelivr.net/gh/iamtherealtux/hollow-knight@latest/";
 
+        const RAW_BASE =
+            "https://raw.githubusercontent.com/iamtherealtux/hollow-knight/main/";
+
         const loadingText = document.getElementById("loading-text");
         const container = document.getElementById("unity-container");
         const canvas = document.getElementById("unity-canvas");
@@ -162,7 +165,9 @@
             const parts = [];
 
             for (let i = start; i <= end; i++) {
-                parts.push(absoluteURL(file + ".part" + i));
+                parts.push(
+                    RAW_BASE + file + ".part" + i
+                );
             }
 
             return parts;
@@ -204,8 +209,6 @@
                         "application/wasm"
                     )
                 ]);
-
-                const buildUrl = absoluteURL("Build/");
 
                 const loaderUrl =
                     absoluteURL("Build/hk.loader.js");
@@ -261,15 +264,6 @@
                         "Unity loader did not define createUnityInstance"
                     );
                 }
-
-                /*
-                 * Unity may try to resolve its URLs against
-                 * location.href, which is about:srcdoc inside
-                 * the WGFWP iframe.
-                 *
-                 * All configured asset URLs above are absolute.
-                 * This avoids most relative URL resolution errors.
-                 */
 
                 const unityInstance = await createUnityInstance(
                     canvas,
